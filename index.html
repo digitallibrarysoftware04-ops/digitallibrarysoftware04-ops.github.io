@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LIBRARY SOFTWARE · Run your library from one screen</title>
+<meta name="description" content="Library management for schools, colleges, madrasas and reading rooms. Barcode issue and return, books, members, reports and student self-check. Free 1-month trial.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2048%2048%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22lg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237cb0ff%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%239b8cff%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%2244%22%20height%3D%2244%22%20rx%3D%2213%22%20fill%3D%22url%28%23lg%29%22/%3E%3Cpath%20d%3D%22M11%2015.5c4.2-1.6%208.6-1.4%2013%201.2%204.4-2.6%208.8-2.8%2013-1.2v18.2c-4.2-1.6-8.6-1.4-13%201.2-4.4-2.6-8.8-2.8-13-1.2z%22%20fill%3D%22none%22%20stroke%3D%22%230a1124%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M24%2016.7v18.2%22%20stroke%3D%22%230a1124%22%20stroke-width%3D%222.6%22/%3E%3Cpath%20d%3D%22M15%2021h5M15%2025h5M28%2021h5M28%2025h5%22%20stroke%3D%22%230a1124%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1124;--bg2:#0f1832;--surface:#121c3a;--surface2:#18244a;--line:#24325c;--ink:#e9eefc;--muted:#9aa8cc;--accent:#7cb0ff;--accent2:#9b8cff;--ok:#34d399;--warn:#fbbf24;--err:#f87171;
+  --grad:linear-gradient(135deg,#7cb0ff,#9b8cff);--r:18px;--font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:"Outfit","Inter",system-ui,sans-serif}
+:root[data-theme=light]{--bg:#f4f6fc;--bg2:#eef2fb;--surface:#ffffff;--surface2:#f1f4fb;--line:#dbe2f2;--ink:#0f1a36;--muted:#5b6788;--accent:#3d7bea;--accent2:#6b5ce7}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;min-height:100vh}
+body.bgdeco{background:radial-gradient(900px 500px at 85% -10%,rgba(124,176,255,.16),transparent 60%),radial-gradient(700px 500px at -10% 30%,rgba(155,140,255,.12),transparent 60%),var(--bg)}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0 0 .4em;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+input,select,textarea{width:100%;background:var(--bg2);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin:0 0 6px}
+.f{margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:12px 22px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .12s,filter .15s,background .15s;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}.btn:active{transform:scale(.98)}
+.btn:focus-visible,.tab:focus-visible,.chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.pri{background:var(--grad);border:0;color:#0a1124;box-shadow:0 8px 24px rgba(124,176,255,.25)}
+.btn.sm{padding:8px 14px;font-size:.88rem}
+.btn.red{color:var(--err);border-color:color-mix(in srgb,var(--err) 45%,transparent)}
+.btn.block{width:100%}
+.btn[disabled]{opacity:.55;pointer-events:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.muted{color:var(--muted)}.small{font-size:.86rem}
+.msg{min-height:1.2em;font-size:.9rem;margin:8px 0}.msg.err{color:var(--err)}.msg.ok{color:var(--ok)}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--display);font-weight:800;letter-spacing:.14em;font-size:1rem}
+.logo svg{width:34px;height:34px;flex:none}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:.78rem;font-weight:700;background:var(--surface2);border:1px solid var(--line)}
+.pill.ok{color:var(--ok)}.pill.warn{color:var(--warn)}.pill.err{color:var(--err)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface2);border-radius:999px;padding:8px 14px;font-weight:600;cursor:pointer;font-size:.9rem}
+.chip.on{background:var(--grad);color:#0a1124;border-color:transparent}
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(5,9,22,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:6vh 16px;overflow-y:auto}
+.overlay.on{display:flex}
+.modal{width:100%;max-width:460px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+.modal h2{font-size:1.5rem}
+.mhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.x{border:0;background:var(--surface2);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.1rem;flex:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--surface2);border:1px solid var(--line);color:var(--ink);padding:12px 20px;border-radius:999px;font-weight:600;z-index:80;transition:.25s;max-width:calc(100vw - 32px);text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}.toast.bad{color:var(--err)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+.scroll{overflow-x:auto}
+#scan{position:fixed;inset:0;background:#000;z-index:90;display:none;flex-direction:column}#scan.on{display:flex}
+#scan video{flex:1;width:100%;object-fit:cover;min-height:0}
+#scan .frame{position:absolute;left:10%;right:10%;top:32%;height:22%;border:3px solid #7cb0ff;border-radius:14px;box-shadow:0 0 0 9999px rgba(0,0,0,.45);pointer-events:none}
+#scan .sbar{display:flex;align-items:center;gap:10px;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));background:#0a1124;color:#fff}
+#scan .sbar div{flex:1}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:40;padding:12px 0}
+.nav{display:flex;align-items:center;gap:12px;background:color-mix(in srgb,var(--surface) 78%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 8px}
+.nav .logo{flex:1}
+.ham{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--line);background:transparent;display:grid;place-items:center;cursor:pointer;flex:none;color:var(--ink)}
+.ham .bars{display:flex;flex-direction:column;gap:5px}.ham .bars i{display:block;width:20px;height:2.5px;border-radius:2px;background:currentColor}
+.ham .xx{display:none;font-size:1.3rem;color:var(--accent);font-weight:700}
+.ham[aria-expanded=true] .bars{display:none}.ham[aria-expanded=true] .xx{display:block}
+.menu{display:none;position:fixed;z-index:39;left:16px;right:16px;top:86px;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:16px 12px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.menu.on{display:block}
+.menu .lab{font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--muted);padding:4px 14px 8px}
+.menu a,.menu button{display:flex;align-items:center;gap:14px;width:100%;padding:12px 14px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600;font-size:1.05rem;background:none;border:0;cursor:pointer;text-align:left}
+.menu a:hover,.menu button:hover{background:var(--surface2)}
+.menu svg{width:22px;height:22px;color:var(--accent);flex:none}
+.menu hr{border:0;border-top:1px solid var(--line);margin:8px 6px}
+.mback{display:none;position:fixed;inset:0;z-index:38;background:rgba(5,9,22,.5);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}.mback.on{display:block}
+.hero{padding-top:56px;padding-bottom:40px}
+.tag{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 16px 6px 6px;color:var(--accent);font-weight:600;font-size:.95rem}
+.tag b{background:var(--grad);color:#0a1124;border-radius:999px;padding:6px 14px;font-size:.85rem}
+.hero h1{font-size:clamp(2.4rem,6.5vw,4.2rem);font-weight:800;margin:22px 0 18px}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--muted);max-width:640px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.cta .btn{padding:16px 28px;font-size:1.05rem}
+.ticks{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;color:var(--muted);font-size:.95rem}
+.ticks span::before{content:"✓ ";color:var(--accent);font-weight:800}
+section{padding:56px 0}
+.sh{max-width:680px;margin-bottom:28px}
+.sh .ey{font-size:.8rem;font-weight:700;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.sh h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-top:8px}
+.feat{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.feat .card h3{font-size:1.15rem;margin-top:12px}
+.feat .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.feat .ic svg{width:24px;height:24px}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;counter-reset:s}
+.steps .card{position:relative;padding-top:56px}
+.steps .card::before{counter-increment:s;content:counter(s);position:absolute;top:16px;left:20px;width:30px;height:30px;border-radius:50%;background:var(--grad);color:#0a1124;font-weight:800;display:grid;place-items:center}
+.who{display:flex;flex-wrap:wrap;gap:10px}
+.who span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:600}
+.plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.plan{display:flex;flex-direction:column;gap:6px}
+.plan .pr{font-family:var(--display);font-size:2rem;font-weight:800}
+.plan .pr small{font-size:.9rem;color:var(--muted);font-weight:600}
+.plan.best{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.plan ul{margin:6px 0 14px;padding-left:18px;color:var(--muted);font-size:.92rem}
+.plan .btn{margin-top:auto}
+details{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700;list-style:none}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--accent);font-weight:800}details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin:10px 0 0}
+footer{padding:40px 0 60px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);margin-top:30px}
+.shot{margin-top:40px;border-radius:24px;border:1px solid var(--line);background:var(--surface);padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.shot .row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.shot .st{background:var(--bg2);border-radius:14px;padding:14px}
+.shot .st b{display:block;font-family:var(--display);font-size:1.6rem}
+.shot .st span{font-size:.78rem;color:var(--muted)}
+.shot .ln{display:flex;justify-content:space-between;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:.9rem}
+@media(max-width:560px){.shot .row{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body class="bgdeco">
+<header><div class="wrap"><div class="nav">
+  <button class="ham" id="ham" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="xx" aria-hidden="true">✕</span></button>
+  <a class="logo" href="#top" aria-label="LIBRARY SOFTWARE home"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cb0ff"/><stop offset="1" stop-color="#9b8cff"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg)"/><path d="M11 15.5c4.2-1.6 8.6-1.4 13 1.2 4.4-2.6 8.8-2.8 13-1.2v18.2c-4.2-1.6-8.6-1.4-13 1.2-4.4-2.6-8.8-2.8-13-1.2z" fill="none" stroke="#0a1124" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 16.7v18.2" stroke="#0a1124" stroke-width="2.6"/><path d="M15 21h5M15 25h5M28 21h5M28 25h5" stroke="#0a1124" stroke-width="2" stroke-linecap="round"/></svg><span>LIBRARY<br>SOFTWARE</span></a>
+  <button class="btn pri" data-open="signup">Sign up free</button>
+</div></div></header>
+<div class="mback" id="mback"></div>
+<nav class="menu" id="menu" aria-label="Main menu">
+  <div class="lab">LIBRARY SOFTWARE</div>
+  <a href="#how"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>How it works</a>
+  <a href="#who"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .7 3.5 2.6 3.5 6"/></svg>Who it’s for</a>
+  <a href="#features"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Features</a>
+  <a href="#plans"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19"/></svg>Plans</a>
+  <a href="#faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h11l-2 4 2 4H5"/></svg>FAQ</a>
+  <hr>
+  <button data-open="signup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Create a free account</button>
+  <button data-open="login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Log in</button>
+  <button data-demo><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Try the demo</button>
+  <a href="my.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/></svg>Student self-check</a>
+  <a href="#contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Contact us</a>
+</nav>
+
+<main id="top">
+<div class="wrap hero">
+  <span class="tag"><b>Free trial</b>1 month free · for schools, colleges and madrasas</span>
+  <h1>Run your library from <span>one screen.</span></h1>
+  <p class="lead">Scan a book, scan a student ID, done. Books, members, due dates, overdue lists and reports, all on your phone or computer. No more registers and lost cards.</p>
+  <div class="cta"><button class="btn pri" data-open="signup">Create a free account →</button><button class="btn" data-demo>👁 See the live demo</button></div>
+  <div class="ticks"><span>1 month free trial</span><span>Works on any phone</span><span>Barcode scanning with the camera</span><span>No installation</span></div>
+  <div class="shot" aria-hidden="true">
+    <div class="row"><div class="st"><b>1,248</b><span>Books</span></div><div class="st"><b>86</b><span>With students</span></div><div class="st"><b>312</b><span>Members</span></div><div class="st"><b style="color:var(--warn)">7</b><span>Overdue</span></div></div>
+    <div style="margin-top:12px"><div class="ln"><span>📗 Wings of Fire → Ameen K</span><span class="muted">due 17 Nov</span></div><div class="ln"><span>📘 Randamoozham ← Fathima Riya</span><span style="color:var(--ok)">returned</span></div><div class="ln" style="border:0"><span>📙 The Alchemist → Rahul Menon</span><span class="muted">due 19 Nov</span></div></div>
+  </div>
+</div>
+
+<section id="how"><div class="wrap">
+  <div class="sh"><span class="ey">How it works</span><h2>Ready in five minutes</h2></div>
+  <div class="steps">
+    <div class="card"><h3>Create your library</h3><p class="muted">Sign up free with your library name. The 1-month trial starts at once.</p></div>
+    <div class="card"><h3>Add books and members</h3><p class="muted">Add one by one, scan barcodes, or paste a whole list from Excel in one go.</p></div>
+    <div class="card"><h3>Issue and return</h3><p class="muted">Scan the book and the student ID card. The due date is set for you.</p></div>
+    <div class="card"><h3>See everything</h3><p class="muted">Who has which book, overdue books, top readers and the history of every book.</p></div>
+  </div>
+</div></section>
+
+<section id="who"><div class="wrap">
+  <div class="sh"><span class="ey">Who it’s for</span><h2>Made for small and busy libraries</h2></div>
+  <div class="who"><span>🏫 Schools</span><span>🎓 Colleges</span><span>🕌 Madrasas and Dars</span><span>📚 Reading rooms</span><span>🏢 Office libraries</span><span>🏘️ Community libraries</span></div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <div class="sh"><span class="ey">Features</span><h2>Everything a librarian needs</h2></div>
+  <div class="feat">
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></div><h3>Barcode issue and return</h3><p class="muted">Use the phone camera or a USB barcode scanner. Issue and return in seconds.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3-1.3 6-1.3 9 .5 3-1.8 6-1.8 9-.5V19c-3-1.3-6-1.3-9 .5-3-1.8-6-1.8-9-.5z"/><path d="M12 6v13.5"/></svg></div><h3>Books catalogue</h3><p class="muted">Add, edit and remove books with author, language, category, price and shelf. Search instantly.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6"/><path d="M19 8v6M16 11h6"/></svg></div><h3>Students and members</h3><p class="muted">Add students one by one or a whole class at once. Edit names, classes and ID numbers any time.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Due dates and overdue list</h3><p class="muted">Set the loan days. See every late book and who has it, with phone numbers.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div><h3>Reports</h3><p class="muted">Top readers, most read books, class-wise reading and the history of any book or student.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div><h3>Barcode labels</h3><p class="muted">Print barcode stickers for books and ID labels for members on A4 paper.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/></svg></div><h3>Student self-check</h3><p class="muted">Students scan their own ID to see the books they have and their due dates.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg></div><h3>Many librarians</h3><p class="muted">Give separate logins to each librarian. The admin controls who can do what.</p></div>
+  </div>
+</div></section>
+
+<section id="plans"><div class="wrap">
+  <div class="sh"><span class="ey">Plans</span><h2>Simple prices for every library</h2><p class="muted">Start with 1 month free. Every plan has all features, unlimited books and unlimited members. Pay by UPI, or use a coupon.</p></div>
+  <div class="plans">
+    <div class="card plan"><h3>Free trial</h3><div class="pr">₹0 <small>/ 1 month</small></div><ul><li>All features</li><li>No payment needed</li></ul><button class="btn block" data-open="signup">Start free</button></div>
+    <div class="card plan"><h3>3 months</h3><div class="pr">₹899</div><ul><li>All features</li><li>₹300 a month</li></ul><button class="btn block" data-open="signup">Choose</button></div>
+    <div class="card plan"><h3>6 months</h3><div class="pr">₹1,699</div><ul><li>All features</li><li>₹283 a month</li></ul><button class="btn block" data-open="signup">Choose</button></div>
+    <div class="card plan best"><span class="pill ok" style="align-self:flex-start">Best value</span><h3>1 year</h3><div class="pr">₹3,399</div><ul><li>All features</li><li>₹283 a month</li></ul><button class="btn pri block" data-open="signup">Choose</button></div>
+    <div class="card plan"><h3>2 years</h3><div class="pr">₹6,699</div><ul><li>All features</li><li>₹279 a month</li></ul><button class="btn block" data-open="signup">Choose</button></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="sh"><span class="ey">FAQ</span><h2>Questions</h2></div>
+  <details><summary>Do I need to install anything?</summary><p>No. It runs in the browser on any phone, tablet or computer. Open the site, log in and start.</p></details>
+  <details><summary>Do I need a barcode scanner?</summary><p>No. The phone camera can scan barcodes. A USB barcode scanner also works on a computer, and you can always type the ID.</p></details>
+  <details><summary>What happens after the free month?</summary><p>Choose a plan and pay by UPI, or enter a coupon. Your books and members stay safe. Until you renew, you can see your data but cannot issue books.</p></details>
+  <details><summary>Can I bring my old list of books?</summary><p>Yes. Copy the columns from Excel or Google Sheets and paste them in “Add many”. Hundreds of books go in at once.</p></details>
+  <details><summary>Is my data private?</summary><p>Each library sees only its own books and members. Students see only their own books in self-check.</p></details>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="card" style="text-align:center;padding:36px 20px">
+    <h2>Start your free month today</h2><p class="muted">No payment needed to start. Questions? <span id="contactLine">Write to us.</span></p>
+    <div class="cta" style="justify-content:center;margin-top:18px"><button class="btn pri" data-open="signup">Create a free account →</button><button class="btn" data-demo>Try the demo</button></div>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap" style="display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between"><span class="logo" style="font-size:.85rem"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cb0ff"/><stop offset="1" stop-color="#9b8cff"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg)"/><path d="M11 15.5c4.2-1.6 8.6-1.4 13 1.2 4.4-2.6 8.8-2.8 13-1.2v18.2c-4.2-1.6-8.6-1.4-13 1.2-4.4-2.6-8.8-2.8-13-1.2z" fill="none" stroke="#0a1124" stroke-width="2.6" stroke-linejoin="round"/><path d="M24 16.7v18.2" stroke="#0a1124" stroke-width="2.6"/><path d="M15 21h5M15 25h5M28 21h5M28 25h5" stroke="#0a1124" stroke-width="2" stroke-linecap="round"/></svg>LIBRARY SOFTWARE</span><span>© <span id="yr"></span> LIBRARY SOFTWARE · <a href="my.html">Student self-check</a> · <a href="#" data-open="login">Log in</a></span></div></footer>
+
+<div class="overlay" id="ovSignup" role="dialog" aria-modal="true" aria-labelledby="suT"><div class="modal">
+  <div class="mhead"><h2 id="suT">Create your library</h2><button class="x" data-close aria-label="Close">✕</button></div>
+  <p class="muted small">1 month free. No payment needed.</p>
+  <form id="fSignup" autocomplete="off">
+    <div class="f"><label for="sName">Library name *</label><input id="sName" placeholder="e.g. Green Valley School Library" required></div>
+    <div class="f"><label for="sInst">Institution</label><input id="sInst" placeholder="School, college or madrasa name"></div>
+    <div class="grid2"><div class="f"><label for="sContact">Your name *</label><input id="sContact" required></div><div class="f"><label for="sPhone">Phone *</label><input id="sPhone" inputmode="tel" required></div></div>
+    <div class="f"><label for="sEmail">Email</label><input id="sEmail" type="email"></div>
+    <div class="grid2"><div class="f"><label for="sU">Username *</label><input id="sU" autocapitalize="off" spellcheck="false" required></div><div class="f"><label for="sP">Password *</label><input id="sP" type="password" required minlength="6"></div></div>
+    <p class="msg err" id="suMsg" role="alert"></p>
+    <button class="btn pri block" type="submit" id="suBtn">Create free account</button>
+  </form>
+  <p class="small muted" style="text-align:center;margin:14px 0 0">Already have an account? <a href="#" data-open="login">Log in</a></p>
+</div></div>
+<div class="overlay" id="ovLogin" role="dialog" aria-modal="true" aria-labelledby="liT"><div class="modal">
+  <div class="mhead"><h2 id="liT">Log in</h2><button class="x" data-close aria-label="Close">✕</button></div>
+  <form id="fLogin">
+    <div class="f"><label for="lU">Username</label><input id="lU" autocapitalize="off" spellcheck="false" required></div>
+    <div class="f"><label for="lP">Password</label><input id="lP" type="password" required></div>
+    <p class="msg err" id="liMsg" role="alert"></p>
+    <button class="btn pri block" type="submit" id="liBtn">Log in</button>
+  </form>
+  <p class="small muted" style="text-align:center;margin:14px 0 0">New here? <a href="#" data-open="signup">Create a free account</a> · <a href="#" data-demo>Try the demo</a></p>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+var API='https://script.google.com/macros/s/AKfycbwI_NSl5d6Y2yZ3lJAR6V1Acwo0iFqK0xFgqnc4RdK79ieFS9V_YKa6E7-WLYYBV17JUg/exec';
+var CONTACT='';
+function api(body){
+  return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})
+    .catch(function(){throw new Error('No internet. Please check the connection and try again.')})
+    .then(function(r){return r.json().catch(function(){throw new Error('The server did not answer. Try again.')})})
+    .then(function(j){if(!j.ok){var e=new Error(String(j.error||'Something went wrong').replace(/^(SESSION|EXPIRED): /,''));e.session=/^SESSION:/.test(j.error||'');e.expired=/^EXPIRED:/.test(j.error||'');throw e}return j});
+}
+function getTok(){try{return localStorage.getItem('ls_tok')||sessionStorage.getItem('ls_tok')||''}catch(e){return ''}}
+function setTok(t,temp){try{localStorage.removeItem('ls_tok');sessionStorage.removeItem('ls_tok');if(t)(temp?sessionStorage:localStorage).setItem('ls_tok',t)}catch(e){}}
+var _tt=null;
+function toast(t,bad){var el=document.getElementById('toast');if(!el)return;el.textContent=t;el.classList.toggle('bad',!!bad);el.classList.add('on');clearTimeout(_tt);_tt=setTimeout(function(){el.classList.remove('on')},2800)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function dstr(v){if(!v)return '';var d=typeof v==='number'?new Date(v):new Date(String(v)+'T00:00:00');if(isNaN(d))return String(v);return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()}
+function today(){var d=new Date(Date.now()+(330+new Date().getTimezoneOffset())*60000);return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN')}
+/* camera barcode scanner: calls onCode(text) for every code; keep=true keeps scanning */
+var SCAN={stream:null,timer:null,zx:null,last:'',lastT:0};
+function loadZx(){return new Promise(function(ok,no){if(window.ZXing)return ok();var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';s.onload=ok;s.onerror=function(){no(new Error('Scanner could not load. Check the internet.'))};document.head.appendChild(s)})}
+async function startScan(onCode,keep,msg){
+  var box=document.getElementById('scan'),v=document.getElementById('scanVid'),m=document.getElementById('scanMsg');
+  m.textContent=msg||'Point the camera at the barcode'; box.classList.add('on');
+  var hit=function(t){t=String(t||'').trim();var now=Date.now();if(!t||(t===SCAN.last&&now-SCAN.lastT<2500))return;SCAN.last=t;SCAN.lastT=now;try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}if(!keep)stopScan();onCode(t)};
+  try{
+    if('BarcodeDetector' in window){
+      SCAN.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false}); v.srcObject=SCAN.stream; await v.play();
+      var det=new BarcodeDetector();
+      var tick=async function(){if(!SCAN.stream)return;try{var r=await det.detect(v);if(r&&r.length)hit(r[0].rawValue)}catch(e){}SCAN.timer=setTimeout(tick,220)}; tick();
+    }else{await loadZx();SCAN.zx=new ZXing.BrowserMultiFormatReader();await SCAN.zx.decodeFromConstraints({video:{facingMode:'environment'}},v,function(res){if(res)hit(res.getText())})}
+  }catch(e){m.textContent=(e&&e.name==='NotAllowedError')?'Camera permission was denied. Allow the camera in the browser settings.':'Camera could not start. Use Google Chrome, or type the ID.'}
+}
+function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(e){}SCAN.zx=null;if(SCAN.stream){SCAN.stream.getTracks().forEach(function(t){t.stop()});SCAN.stream=null}var v=document.getElementById('scanVid');if(v){try{v.pause();v.srcObject=null}catch(e){}}var b=document.getElementById('scan');b&&b.classList.remove('on')}
+
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  $('yr').textContent=new Date().getFullYear();
+  if(CONTACT)$('contactLine').innerHTML=CONTACT;
+  var ham=$('ham');
+  function menu(o){$('menu').classList.toggle('on',o);$('mback').classList.toggle('on',o);ham.setAttribute('aria-expanded',String(o))}
+  ham.onclick=function(){menu(!$('menu').classList.contains('on'))};
+  $('mback').onclick=function(){menu(false)};
+  [].forEach.call(document.querySelectorAll('.menu a'),function(a){a.addEventListener('click',function(){menu(false)})});
+  function open(k){menu(false);['ovSignup','ovLogin'].forEach(function(o){$(o).classList.remove('on')});var o=$(k==='signup'?'ovSignup':'ovLogin');o.classList.add('on');setTimeout(function(){var i=o.querySelector('input');i&&i.focus()},50)}
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-open]'); if(b){e.preventDefault();open(b.dataset.open);return}
+    if(e.target.closest('[data-close]')||e.target.classList.contains('overlay')){[].forEach.call(document.querySelectorAll('.overlay'),function(o){o.classList.remove('on')});return}
+    var d=e.target.closest('[data-demo]'); if(d){e.preventDefault();menu(false);toast('Opening the demo…');api({a:'demo'}).then(function(j){setTok(j.token,true);location.href='app.html'}).catch(function(err){toast(err.message,1)})}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){menu(false);[].forEach.call(document.querySelectorAll('.overlay'),function(o){o.classList.remove('on')})}});
+  $('fSignup').onsubmit=function(e){e.preventDefault();var b=$('suBtn');b.disabled=true;b.textContent='Creating…';$('suMsg').textContent='';
+    api({a:'signup',lib:{name:$('sName').value,inst:$('sInst').value,contact:$('sContact').value,phone:$('sPhone').value,email:$('sEmail').value},user:{u:$('sU').value,p:$('sP').value}})
+      .then(function(j){setTok(j.token);location.href='app.html?welcome=1'}).catch(function(err){$('suMsg').textContent=err.message;b.disabled=false;b.textContent='Create free account'})};
+  $('fLogin').onsubmit=function(e){e.preventDefault();var b=$('liBtn');b.disabled=true;b.textContent='Logging in…';$('liMsg').textContent='';
+    api({a:'login',u:$('lU').value,p:$('lP').value}).then(function(j){setTok(j.token);location.href='app.html'}).catch(function(err){$('liMsg').textContent=err.message;b.disabled=false;b.textContent='Log in'})};
+  if(getTok()&&/[?&]login/.test(location.search)===false){var hdr=document.querySelector('.nav .btn.pri');hdr.textContent='Open my library';hdr.removeAttribute('data-open');hdr.onclick=function(){location.href='app.html'}}
+  if(location.hash==='#login')open('login'); if(location.hash==='#signup')open('signup');
+  try{if(!sessionStorage.getItem('ls_hit')){sessionStorage.setItem('ls_hit','1');api({a:'hit'}).catch(function(){})}}catch(e){}
+})();
+</script>
+</body>
+</html>
