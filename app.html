@@ -112,8 +112,11 @@ th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;l
 .plan .pr{font-family:var(--display);font-size:1.6rem;font-weight:800}
 .qr{background:#fff;border-radius:14px;padding:12px;display:inline-block}
 .sec{margin-bottom:18px}
-#labels{display:none}
-@media print{body{background:#fff!important;color:#000}body>*:not(#labels){display:none!important}#labels{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6mm;padding:6mm}#labels .lb{border:1px dashed #999;padding:3mm;text-align:center;break-inside:avoid;font:10pt Arial}#labels .lb b{display:block;font-size:9pt;margin-bottom:1mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#labels svg{width:100%;height:auto}}
+#labels{display:none}#repPrint{display:none}
+.sw{display:flex;gap:10px;flex-wrap:wrap}.sw button{width:46px;height:46px;border-radius:50%;border:3px solid transparent;cursor:pointer;box-shadow:0 0 0 1px var(--line)}.sw button.on{border-color:var(--ink)}
+body.prRep #labels{display:none!important}
+@media print{body.prRep>*:not(#repPrint){display:none!important}body.prRep #repPrint{display:block!important;color:#000;font:11pt Arial,sans-serif;padding:8mm}#repPrint *{background:none!important;color:#000!important;box-shadow:none!important;text-transform:none!important;letter-spacing:0!important}#repPrint .card{border:0!important;padding:0!important;border-radius:0!important}#repPrint h1{font-size:16pt;margin:0 0 2mm}#repPrint .sub{color:#444;margin:0 0 5mm}#repPrint table{width:100%;border-collapse:collapse}#repPrint th,#repPrint td{border:1px solid #999;padding:2mm 3mm;text-align:left;vertical-align:top}#repPrint th{background:#eee!important;font-weight:700;-webkit-print-color-adjust:exact;print-color-adjust:exact}#repPrint tr{break-inside:avoid}#repPrint h3{margin:5mm 0 2mm;font-size:12pt}
+body{background:#fff!important;color:#000}body:not(.prRep)>*:not(#labels){display:none!important}#labels{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6mm;padding:6mm}#labels .lb{border:1px dashed #999;padding:3mm;text-align:center;break-inside:avoid;font:10pt Arial}#labels .lb b{display:block;font-size:9pt;margin-bottom:1mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#labels svg{width:100%;height:auto}}
 .empty{border:1.5px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--muted)}
 .hint{font-size:.82rem;color:var(--muted)}
 textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:.85rem}
@@ -207,7 +210,8 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
 
   <section id="v-reports" class="view" hidden>
     <div class="vh"><h2>Reports</h2><div class="chips" id="rP"><button class="chip on" data-p="all">All time</button><button class="chip" data-p="month">This month</button><button class="chip" data-p="year">This year</button></div></div>
-    <div class="chips" id="rT" style="margin-bottom:14px"><button class="chip on" data-t="issued">With members now</button><button class="chip" data-t="overdue">Overdue</button><button class="chip" data-t="readers">Top readers</button><button class="chip" data-t="booksTop">Most read books</button><button class="chip" data-t="groups">By class</button><button class="chip" data-t="never">Never borrowed</button></div>
+    <div class="chips" id="rT" style="margin-bottom:14px"><button class="chip on" data-t="issued">With members now</button><button class="chip" data-t="overdue">Overdue</button><button class="chip" data-t="readers">Top readers</button><button class="chip" data-t="booksTop">Most read books</button><button class="chip" data-t="groups">By class</button><button class="chip" data-t="noread">Members not reading</button><button class="chip" data-t="never">Books never read</button></div>
+    <div class="chips" style="margin-bottom:14px;align-items:center"><select id="rG" style="max-width:240px" hidden></select><button class="btn sm" id="rPrint">🖨 Print this report</button></div>
     <div id="repOut"></div>
   </section>
 
@@ -241,6 +245,7 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
       <div class="f"><label for="stName">Library name *</label><input id="stName"></div>
       <div class="f"><label for="stInst">Institution</label><input id="stInst"></div>
       <div class="f"><label for="stDays">Loan days (how long a member can keep a book)</label><input id="stDays" type="number" min="1" max="120"></div>
+      <div class="f"><label>Colour of the software</label><div class="sw" id="stColor"></div></div>
       <p class="msg" id="stMsg"></p>
       <button class="btn pri" id="stSave">Save</button>
     </div>
@@ -311,7 +316,7 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
 </div></div>
 <datalist id="dlLang"></datalist><datalist id="dlCat"></datalist><datalist id="dlShelf"></datalist><datalist id="dlGroup"></datalist>
 <div id="scan" role="dialog" aria-label="Scan barcode"><video id="scanVid" playsinline muted></video><div class="frame"></div><div class="sbar"><div id="scanMsg">Point the camera at the barcode</div><button class="btn sm" id="scanClose">Close</button></div></div>
-<div id="labels"></div>
+<div id="labels"></div><div id="repPrint"></div>
 <div class="toast" id="toast"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
@@ -354,6 +359,10 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   var $=function(i){return document.getElementById(i)};
   var D=null, view='dash', bF='', rP='all', rT='issued', lK='book', editBook=null, editMem=null, editUser=null, bulkK='book', payPlan='';
   try{var th=localStorage.getItem('ls_theme');if(th)document.documentElement.dataset.theme=th}catch(e){}
+  var COLORS={blue:['#7cb0ff','#9b8cff','#3d7bea','#6b5ce7'],green:['#34d399','#22c1c3','#0f9f6e','#0e8f8f'],orange:['#fbbf24','#fb923c','#d97706','#ea580c'],pink:['#f472b6','#c084fc','#db2777','#9333ea'],red:['#f87171','#fb7185','#dc2626','#e11d48'],teal:['#2dd4bf','#60a5fa','#0d9488','#2563eb']},pickColor='';
+  function applyColor(c){var k=COLORS[c]?c:'blue',v=COLORS[k],st=document.getElementById('libColor');if(!st){st=document.createElement('style');st.id='libColor';document.head.appendChild(st)}
+    st.textContent=':root{--accent:'+v[0]+';--accent2:'+v[1]+';--grad:linear-gradient(135deg,'+v[0]+','+v[1]+')}:root[data-theme=light]{--accent:'+v[2]+';--accent2:'+v[3]+';--grad:linear-gradient(135deg,'+v[0]+','+v[1]+')}';try{localStorage.setItem('ls_color',k)}catch(e){}}
+  try{applyColor(localStorage.getItem('ls_color')||'blue')}catch(e){}
   if(!getTok()){location.replace('index.html#login');return}
   /* ---------- menu ---------- */
   function menu(o){$('menu').classList.toggle('on',o);$('mback').classList.toggle('on',o);$('ham').setAttribute('aria-expanded',String(o))}
@@ -400,11 +409,12 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
     else if(L.daysLeft<=7)bn='<div class="banner warn"><span>⏳ Only <b>'+L.daysLeft+' days</b> left in your '+(trial?'free trial':'plan')+'.</span><button class="btn pri sm" data-go="billing">Choose a plan</button></div>';
     $('banner').innerHTML=bn;
     var adm=D.me.role==='admin'||D.me.role==='demo'; [].forEach.call(document.querySelectorAll('.menu .adm'),function(b){b.hidden=!adm});
+    applyColor(L.settings.color||'blue');
     var su=location.href.replace(/[^\/]*$/,'')+'my.html?lib='+encodeURIComponent(L.id); $('selfLink').href=su; $('selfUrl').value=su;
     function dl(id,vals){var s={};vals.forEach(function(v){if(v)s[v]=1});$(id).innerHTML=Object.keys(s).sort().map(function(v){return '<option value="'+esc(v)+'">'}).join('')}
     dl('dlLang',D.books.map(function(b){return b.lang}));dl('dlCat',D.books.map(function(b){return b.cat}));dl('dlShelf',D.books.map(function(b){return b.shelf}));dl('dlGroup',D.members.map(function(m){return m.group}));
     var gs={};D.members.forEach(function(m){if(m.group)gs[m.group]=1});var opts='<option value="">All classes / groups</option>'+Object.keys(gs).sort().map(function(g){return '<option>'+esc(g)+'</option>'}).join('');
-    var mg=$('mG').value,lg=$('lG').value;$('mG').innerHTML=opts;$('lG').innerHTML=opts;$('mG').value=mg;$('lG').value=lg;
+    var mg=$('mG').value,lg=$('lG').value,rg=$('rG').value;$('mG').innerHTML=opts;$('lG').innerHTML=opts;$('rG').innerHTML=opts;$('mG').value=mg;$('lG').value=lg;$('rG').value=rg;
   }
   function bookName(id){return books[id]?books[id].title:id} function memName(id){return mems[id]?mems[id].name:id}
   function render(){ if(!D)return; ({dash:rDash,circ:function(){},books:rBooks,members:rMems,reports:rRep,labels:rLabels,logins:rUsers,settings:rSettings,billing:rBilling}[view]||function(){})() }
@@ -510,27 +520,51 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   /* ---------- reports ---------- */
   $('rP').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;rP=c.dataset.p;[].forEach.call($('rP').children,function(x){x.classList.toggle('on',x===c)});rRep()};
   $('rT').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;rT=c.dataset.t;rRep()};
+  $('rG').onchange=rRep;
   function inP(t){if(rP==='all')return true;var d=new Date(t),n=new Date();return rP==='month'?d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear():d.getFullYear()===n.getFullYear()}
   function barsHTML(rows){var mx=Math.max.apply(null,rows.map(function(r){return r[1]}).concat([1]));return '<div class="bars2">'+rows.map(function(r){return '<div class="br"><b title="'+esc(r[0])+'">'+esc(r[0])+'</b><div class="t"><i style="width:'+Math.round(r[1]*100/mx)+'%"></i></div><span>'+r[1]+'</span></div>'}).join('')+'</div>'}
   function rRep(){[].forEach.call($('rT').children,function(x){x.classList.toggle('on',x.dataset.t===rT)});
     var L=D.loans.filter(function(l){return inP(l.at)}),o=$('repOut'),h='';
-    $('rP').style.visibility=(rT==='issued'||rT==='overdue')?'hidden':'visible';
+    $('rP').style.visibility=(rT==='issued'||rT==='overdue'||rT==='never')?'hidden':'visible';$('rG').hidden=rT!=='noread';
     if(rT==='issued'||rT==='overdue'){var l=D.loans.filter(function(x){return !x.back&&(rT==='issued'||isOver(x))}).sort(function(a,b){return a.due<b.due?-1:1});
       h=l.length?'<div class="scroll card" style="padding:6px 10px"><table><thead><tr><th>Book</th><th>Member</th><th>Due</th></tr></thead><tbody>'+l.map(function(x){var m=mems[x.member]||{};return '<tr><td>'+esc(bookName(x.book))+'<br><small class="muted">'+esc(x.book)+'</small></td><td>'+esc(memName(x.member))+'<br><small class="muted">'+esc(m.group||'')+(m.phone?' · <a href="tel:'+esc(m.phone)+'">'+esc(m.phone)+'</a>':'')+'</small></td><td>'+(isOver(x)?'<span class="tag od">'+dstr(x.due)+'</span>':dstr(x.due))+'</td></tr>'}).join('')+'</tbody></table></div>':'<div class="empty">'+(rT==='overdue'?'No overdue books 🎉':'No books with members now.')+'</div>'}
     else if(rT==='readers'){var c={};L.forEach(function(x){c[x.member]=(c[x.member]||0)+1});var r=Object.keys(c).map(function(k){return [memName(k)+(mems[k]&&mems[k].group?' · '+mems[k].group:''),c[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,30);h=r.length?barsHTML(r):'<div class="empty">No reading yet.</div>'}
     else if(rT==='booksTop'){var c2={};L.forEach(function(x){c2[x.book]=(c2[x.book]||0)+1});var r2=Object.keys(c2).map(function(k){return [bookName(k),c2[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,30);h=r2.length?barsHTML(r2):'<div class="empty">No reading yet.</div>'}
     else if(rT==='groups'){var c3={},n3={};D.members.forEach(function(m){var g=m.group||'No class';n3[g]=(n3[g]||0)+1});L.forEach(function(x){var g=(mems[x.member]||{}).group||'No class';c3[g]=(c3[g]||0)+1});
       var r3=Object.keys(n3).map(function(g){return [g+' ('+n3[g]+' members)',c3[g]||0]}).sort(function(a,b){return b[1]-a[1]});h='<p class="hint">Books borrowed by each class.</p>'+(r3.length?barsHTML(r3):'<div class="empty">No members.</div>')}
+    else if(rT==='noread'){h=noReadHTML()}
     else if(rT==='never'){var used={};D.loans.forEach(function(x){used[x.book]=1});var nv=D.books.filter(function(b){return !used[b.id]});h='<p class="hint">'+nv.length+' books were never borrowed.</p><div class="list">'+nv.slice(0,300).map(function(b){return '<div class="item"><div class="main"><b>'+esc(b.title)+'</b><small>'+esc(b.id)+(b.author?' · '+esc(b.author):'')+'</small></div></div>'}).join('')+'</div>'}
     o.innerHTML=h;
   }
+  var RN={issued:'Books with members now',overdue:'Overdue books',readers:'Top readers',booksTop:'Most read books',groups:'Books borrowed by each class',noread:'Members who did not take a book',never:'Books never read'},PN={all:'All time',month:'This month',year:'This year'};
+  function noReadHTML(){var L=D.loans.filter(function(l){return inP(l.at)}),took={},g=$('rG').value;L.forEach(function(x){took[x.member]=1});
+    var nr=D.members.filter(function(m){return !took[m.id]&&(!g||m.group===g)}),all=D.members.filter(function(m){return !g||m.group===g}).length,by={};
+    nr.forEach(function(m){var k=m.group||'No class';(by[k]=by[k]||[]).push(m)});
+    var h='<p class="hint"><b>'+nr.length+'</b> of '+all+' members did not take any book ('+PN[rP].toLowerCase()+').</p>';
+    if(!nr.length)return h+'<div class="empty">Everyone took a book 🎉</div>';
+    Object.keys(by).sort().forEach(function(k){var l=by[k].sort(function(a,b){return a.name.localeCompare(b.name)});
+      h+='<h3 style="margin:16px 0 8px">'+esc(k)+' · '+l.length+'</h3><div class="scroll card" style="padding:6px 10px"><table><thead><tr><th>#</th><th>Name</th><th>ID</th><th>Phone</th></tr></thead><tbody>'+l.map(function(m,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(m.name)+'</td><td>'+esc(m.id)+'</td><td>'+(m.phone?esc(m.phone):'')+'</td></tr>'}).join('')+'</tbody></table></div>'});
+    return h}
+  function printTable(){var L=D.loans.filter(function(l){return inP(l.at)}),rows=[],head=[];
+    if(rT==='readers'||rT==='booksTop'||rT==='groups'){var c={};
+      if(rT==='groups'){var n={};D.members.forEach(function(m){var g=m.group||'No class';n[g]=(n[g]||0)+1});L.forEach(function(x){var g=(mems[x.member]||{}).group||'No class';c[g]=(c[g]||0)+1});head=['#','Class','Members','Books borrowed'];rows=Object.keys(n).map(function(g){return [g,n[g],c[g]||0]}).sort(function(a,b){return b[2]-a[2]})}
+      else{L.forEach(function(x){var k=rT==='readers'?x.member:x.book;c[k]=(c[k]||0)+1});
+        if(rT==='readers'){head=['#','Name','Class','ID','Books'];rows=Object.keys(c).map(function(k){var m=mems[k]||{};return [memName(k),m.group||'',k,c[k]]}).sort(function(a,b){return b[3]-a[3]})}
+        else{head=['#','Book','ID','Times read'];rows=Object.keys(c).map(function(k){return [bookName(k),k,c[k]]}).sort(function(a,b){return b[2]-a[2]})}}
+      return '<table><thead><tr>'+head.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r,i){return '<tr><td>'+(i+1)+'</td>'+r.map(function(v){return '<td>'+esc(v)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'}
+    if(rT==='never'){var used={};D.loans.forEach(function(x){used[x.book]=1});return '<table><thead><tr><th>#</th><th>Book</th><th>ID</th><th>Author</th><th>Shelf</th></tr></thead><tbody>'+D.books.filter(function(b){return !used[b.id]}).map(function(b,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(b.title)+'</td><td>'+esc(b.id)+'</td><td>'+esc(b.author)+'</td><td>'+esc(b.shelf)+'</td></tr>'}).join('')+'</tbody></table>'}
+    var x=document.createElement('div');x.innerHTML=$('repOut').innerHTML;[].forEach.call(x.querySelectorAll('a'),function(a){a.replaceWith(document.createTextNode(a.textContent))});return x.innerHTML}
+  $('rPrint').onclick=function(){var pr=$('repPrint'),g=$('rG').value,per=(rT==='issued'||rT==='overdue'||rT==='never')?'':' · '+PN[rP];
+    pr.innerHTML='<h1>'+esc(D.lib.name)+'</h1><p class="sub"><b>'+esc(RN[rT])+'</b>'+per+(rT==='noread'&&g?' · '+esc(g):'')+' · printed '+dstr(Date.now())+'</p>'+printTable();
+    document.body.classList.add('prRep');setTimeout(function(){window.print()},100)};
+  window.addEventListener('afterprint',function(){document.body.classList.remove('prRep')});
   /* ---------- labels ---------- */
   $('lK').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;lK=c.dataset.k;[].forEach.call($('lK').children,function(x){x.classList.toggle('on',x===c)});rLabels()};
   ['lFrom','lTo','lG'].forEach(function(i){$(i).oninput=rLabels;$(i).onchange=rLabels});
   function lList(){var f=$('lFrom').value.trim().toUpperCase(),t=$('lTo').value.trim().toUpperCase(),g=$('lG').value,cmp=function(a,b){return String(a).localeCompare(String(b),undefined,{numeric:true})};
     var l=(lK==='book'?D.books:D.members.filter(function(m){return !g||m.group===g})).filter(function(x){return (!f||cmp(x.id,f)>=0)&&(!t||cmp(x.id,t)<=0)}).sort(function(a,b){return cmp(a.id,b.id)});return l}
   function rLabels(){$('lG').parentNode.hidden=lK!=='member';$('lCount').textContent=lList().length+' labels'}
-  $('lPrint').onclick=function(){var l=lList();if(!l.length){toast('Nothing to print.',1);return}if(!window.JsBarcode){toast('Please wait a moment and try again.',1);return}
+  $('lPrint').onclick=function(){document.body.classList.remove('prRep');var l=lList();if(!l.length){toast('Nothing to print.',1);return}if(!window.JsBarcode){toast('Please wait a moment and try again.',1);return}
     var box=$('labels');box.innerHTML=l.map(function(x,i){return '<div class="lb"><b>'+esc(lK==='book'?x.title:x.name)+'</b><svg id="lbc'+i+'"></svg></div>'}).join('');
     l.forEach(function(x,i){try{JsBarcode('#lbc'+i,String(x.id),{format:'CODE128',height:42,width:1.6,fontSize:13,margin:2})}catch(e){}});
     setTimeout(function(){window.print()},150)};
@@ -542,8 +576,10 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   $('uCancel').onclick=resetUser;
   $('uSave').onclick=function(){$('uMsg').textContent='';call({a:'user.save',user:{id:editUser?editUser.id:'',name:$('uName').value,u:$('uU').value,p:$('uP').value,role:$('uRole').value}}).then(function(){toast('Saved ✓');resetUser()}).catch(function(err){$('uMsg').className='msg err';$('uMsg').textContent=err.message})};
   /* ---------- settings ---------- */
-  function rSettings(){if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#v-settings'))return;$('stName').value=D.lib.name;$('stInst').value=D.lib.inst;$('stDays').value=D.lib.settings.loanDays}
-  $('stSave').onclick=function(){$('stMsg').textContent='';call({a:'settings',settings:{name:$('stName').value,inst:$('stInst').value,loanDays:$('stDays').value}}).then(function(){$('stMsg').className='msg ok';$('stMsg').textContent='Saved ✓'}).catch(function(err){$('stMsg').className='msg err';$('stMsg').textContent=err.message})};
+  function rSettings(){if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#v-settings'))return;$('stName').value=D.lib.name;$('stInst').value=D.lib.inst;$('stDays').value=D.lib.settings.loanDays;pickColor=D.lib.settings.color||'blue';rSw()}
+  function rSw(){$('stColor').innerHTML=Object.keys(COLORS).map(function(k){return '<button type="button" aria-label="'+k+'" data-c="'+k+'" class="'+(k===pickColor?'on':'')+'" style="background:linear-gradient(135deg,'+COLORS[k][0]+','+COLORS[k][1]+')"></button>'}).join('')}
+  $('stColor').onclick=function(e){var b=e.target.closest('[data-c]');if(!b)return;pickColor=b.dataset.c;applyColor(pickColor);rSw()};
+  $('stSave').onclick=function(){$('stMsg').textContent='';call({a:'settings',settings:{name:$('stName').value,inst:$('stInst').value,loanDays:$('stDays').value,color:pickColor}}).then(function(){$('stMsg').className='msg ok';$('stMsg').textContent='Saved ✓'}).catch(function(err){$('stMsg').className='msg err';$('stMsg').textContent=err.message})};
   $('copySelf').onclick=function(){var i=$('selfUrl');i.select();try{navigator.clipboard.writeText(i.value)}catch(e){document.execCommand('copy')}toast('Link copied ✓')};
   /* ---------- billing ---------- */
   function rBilling(){var L=D.lib;
