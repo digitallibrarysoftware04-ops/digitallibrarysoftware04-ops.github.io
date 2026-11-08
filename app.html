@@ -94,6 +94,8 @@ th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;l
 .cover{width:44px;height:62px;flex:none;border-radius:6px;object-fit:cover;background:var(--surface2,#222);border:1px solid var(--line)}
 .isbnres{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:14px}.isbnres img{width:110px;border-radius:8px;border:1px solid var(--line)}
 .stockbig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.stockbig div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}.stockbig b{display:block;font-family:var(--display);font-size:1.7rem}.stockbig span{font-size:.78rem;color:var(--muted)}
+.qr[hidden]{display:none!important}
+.paygo{font-size:1.1rem;padding:16px;margin-top:6px}
 .wa{background:#25D366!important;color:#06361c!important;border-color:#25D366!important}
 .list{display:flex;flex-direction:column;gap:8px}
 .item{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
@@ -361,10 +363,11 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
       <p class="muted small">1. Choose a plan. 2. Pay by any UPI app (GPay, PhonePe, Paytm). 3. Type the transaction ID (UTR) and send. We confirm within 24 hours and your plan starts from the end of the current one.</p>
       <div class="plans" id="planCards"></div>
       <div id="payBox" hidden style="margin-top:16px">
-        <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center">
-          <div class="qr" id="qr"></div>
-          <div style="flex:1;min-width:220px"><p style="margin:0 0 6px">Pay <b id="payAmt"></b> to</p><p style="margin:0 0 10px"><b id="payUpi"></b><br><span class="muted small" id="payName"></span></p><a class="btn sm" id="payLink">Open UPI app</a></div>
-        </div>
+        <p style="margin:0 0 6px">Pay <b id="payAmt"></b> to <b id="payName"></b></p>
+        <a class="btn pri block paygo" id="payLink">📲 Pay now with UPI app</a>
+        <p class="hint" style="margin:8px 0 0">Opens Google Pay, PhonePe, Paytm or any UPI app with the amount filled in. After paying, come back here and type the UTR number below.</p>
+        <div class="chips" style="margin-top:10px;align-items:center"><span class="muted small">UPI ID: <b id="payUpi"></b></span><button class="btn sm" id="payCopy" type="button">Copy</button><button class="btn sm" id="qrShow" type="button">Show QR code</button></div>
+        <div class="qr" id="qr" hidden style="margin-top:12px"></div>
         <div class="f" style="margin-top:14px"><label for="txn">UPI transaction ID (UTR) *</label><input id="txn" inputmode="numeric" placeholder="12-digit number from your payment app"></div>
         <p class="msg" id="payMsg"></p>
         <button class="btn pri" id="payBtn">Send for confirmation</button>
@@ -794,7 +797,10 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   $('planCards').onclick=function(e){var c=e.target.closest('[data-plan]');if(!c)return;payPlan=c.dataset.plan;rBilling();if(!D.pay.upi)return;var p=D.plans[payPlan];
     $('payBox').hidden=false;$('payAmt').textContent=money(p.price)+' ('+p.name+')';$('payUpi').textContent=D.pay.upi;$('payName').textContent=D.pay.upiName;
     var uri='upi://pay?pa='+encodeURIComponent(D.pay.upi)+'&pn='+encodeURIComponent(D.pay.upiName)+'&am='+p.price+'&cu=INR&tn='+encodeURIComponent('LIBRARY SOFTWARE '+p.name+' '+D.lib.id);
-    $('payLink').href=uri;$('qr').innerHTML='';if(window.QRCode)new QRCode($('qr'),{text:uri,width:170,height:170});$('payBox').scrollIntoView({behavior:'smooth',block:'nearest'})};
+    $('payLink').href=uri;$('payLink').textContent='📲 Pay '+money(p.price)+' now with UPI app';$('qr').innerHTML='';$('qr').hidden=true;$('qrShow').textContent='Show QR code';payUri=uri;$('payBox').scrollIntoView({behavior:'smooth',block:'nearest'})};
+  var payUri='';
+  $('qrShow').onclick=function(){var q=$('qr');q.hidden=!q.hidden;this.textContent=q.hidden?'Show QR code':'Hide QR code';if(!q.hidden&&!q.innerHTML&&window.QRCode)new QRCode(q,{text:payUri,width:170,height:170})};
+  $('payCopy').onclick=function(){var t=D.pay.upi,b=this;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copied ✓';setTimeout(function(){b.textContent='Copy'},1800)}).catch(function(){prompt('UPI ID',t)})};
   $('payBtn').onclick=function(){$('payMsg').textContent='';call({a:'pay',plan:payPlan,txn:$('txn').value}).then(function(j){$('payMsg').className='msg ok';$('payMsg').textContent=j.msg;$('txn').value=''}).catch(function(err){$('payMsg').className='msg err';$('payMsg').textContent=err.message})};
   $('cpnBtn').onclick=function(){$('cpnMsg').textContent='';call({a:'coupon',code:$('cpn').value}).then(function(j){$('cpnMsg').className='msg ok';$('cpnMsg').textContent=j.msg;$('cpn').value=''}).catch(function(err){$('cpnMsg').className='msg err';$('cpnMsg').textContent=err.message})};
   /* ---------- start ---------- */
