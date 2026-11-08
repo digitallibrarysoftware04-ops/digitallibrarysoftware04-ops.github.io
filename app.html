@@ -87,6 +87,14 @@ th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;l
 .quick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
 .quick button{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700;text-align:left}
 .quick svg{width:26px;height:26px;color:var(--accent)}
+.lset{margin-top:18px}.lset h3{display:flex;align-items:center;gap:8px;margin:0 0 4px}
+.lset .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.lset .tiles button{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--surface2,var(--surface));cursor:pointer;text-align:left;color:inherit;font:inherit}
+.lset .tiles button i{font-style:normal;font-size:1.4rem;line-height:1}.lset .tiles b{display:block;font-size:.95rem}.lset .tiles small{display:block;color:var(--muted);font-size:.76rem;margin-top:2px}
+.cover{width:44px;height:62px;flex:none;border-radius:6px;object-fit:cover;background:var(--surface2,#222);border:1px solid var(--line)}
+.isbnres{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:14px}.isbnres img{width:110px;border-radius:8px;border:1px solid var(--line)}
+.stockbig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.stockbig div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}.stockbig b{display:block;font-family:var(--display);font-size:1.7rem}.stockbig span{font-size:.78rem;color:var(--muted)}
+.wa{background:#25D366!important;color:#06361c!important;border-color:#25D366!important}
 .list{display:flex;flex-direction:column;gap:8px}
 .item{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .item .main{flex:1;min-width:0}.item .main b{display:block;overflow-wrap:anywhere}.item .main small{color:var(--muted);display:block;font-size:.82rem;overflow-wrap:anywhere}
@@ -115,7 +123,8 @@ th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;l
 #labels{display:none}#repPrint{display:none}
 .sw{display:flex;gap:10px;flex-wrap:wrap}.sw button{width:46px;height:46px;border-radius:50%;border:3px solid transparent;cursor:pointer;box-shadow:0 0 0 1px var(--line)}.sw button.on{border-color:var(--ink)}
 body.prRep #labels{display:none!important}
-@media print{body.prRep>*:not(#repPrint){display:none!important}body.prRep #repPrint{display:block!important;color:#000;font:11pt Arial,sans-serif;padding:8mm}#repPrint *{background:none!important;color:#000!important;box-shadow:none!important;text-transform:none!important;letter-spacing:0!important}#repPrint .card{border:0!important;padding:0!important;border-radius:0!important}#repPrint h1{font-size:16pt;margin:0 0 2mm}#repPrint .sub{color:#444;margin:0 0 5mm}#repPrint table{width:100%;border-collapse:collapse}#repPrint th,#repPrint td{border:1px solid #999;padding:2mm 3mm;text-align:left;vertical-align:top}#repPrint th{background:#eee!important;font-weight:700;-webkit-print-color-adjust:exact;print-color-adjust:exact}#repPrint tr{break-inside:avoid}#repPrint h3{margin:5mm 0 2mm;font-size:12pt}
+@media print{#labels.cards{grid-template-columns:repeat(2,86mm)!important;gap:5mm!important;justify-content:center;padding:8mm!important}#labels .idc{width:86mm;height:54mm;box-sizing:border-box;border:1px solid #444;border-radius:3mm;padding:3mm 4mm;font:9pt Arial;display:flex;flex-direction:column;break-inside:avoid;overflow:hidden}#labels .idc .h{font-weight:700;font-size:9.5pt;border-bottom:1.5px solid #000;padding-bottom:1.2mm;margin-bottom:1.5mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#labels .idc .n{font-size:11pt;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#labels .idc .g{font-size:8.5pt;color:#333}#labels .idc svg{margin-top:auto;align-self:center;max-width:100%;height:16mm}#labels .idc .t{font-size:6.5pt;color:#555;text-align:center}
+body.prRep>*:not(#repPrint){display:none!important}body.prRep #repPrint{display:block!important;color:#000;font:11pt Arial,sans-serif;padding:8mm}#repPrint *{background:none!important;color:#000!important;box-shadow:none!important;text-transform:none!important;letter-spacing:0!important}#repPrint .card{border:0!important;padding:0!important;border-radius:0!important}#repPrint h1{font-size:16pt;margin:0 0 2mm}#repPrint .sub{color:#444;margin:0 0 5mm}#repPrint table{width:100%;border-collapse:collapse}#repPrint th,#repPrint td{border:1px solid #999;padding:2mm 3mm;text-align:left;vertical-align:top}#repPrint th{background:#eee!important;font-weight:700;-webkit-print-color-adjust:exact;print-color-adjust:exact}#repPrint tr{break-inside:avoid}#repPrint h3{margin:5mm 0 2mm;font-size:12pt}
 body{background:#fff!important;color:#000}body:not(.prRep)>*:not(#labels){display:none!important}#labels{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6mm;padding:6mm}#labels .lb{border:1px dashed #999;padding:3mm;text-align:center;break-inside:avoid;font:10pt Arial}#labels .lb b{display:block;font-size:9pt;margin-bottom:1mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#labels svg{width:100%;height:auto}}
 .empty{border:1.5px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--muted)}
 .hint{font-size:.82rem;color:var(--muted)}
@@ -164,6 +173,15 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
       <button data-add="member"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 3-6 6.5-6s6.5 2.4 6.5 6M19 8v6M16 11h6"/></svg>Add a student</button>
       <button data-go="reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reports</button>
     </div>
+    <div class="card lset"><h3>⚙️ Library settings</h3><p class="hint" style="margin:0">Extra tools found in the best library software in the world.</p>
+      <div class="tiles">
+        <button data-go="rules"><i>💰</i><span><b>Fines and limits</b><small>Late fine, books per member, renewals</small></span></button>
+        <button data-go="holds"><i>📌</i><span><b>Reservations</b><small>Keep a book for the next reader</small></span></button>
+        <button data-go="remind"><i>💬</i><span><b>WhatsApp reminders</b><small>Late and due-soon members</small></span></button>
+        <button data-go="isbn"><i>🔍</i><span><b>ISBN and covers</b><small>Fill book details by scanning ISBN</small></span></button>
+        <button data-go="cards"><i>🪪</i><span><b>Member ID cards</b><small>Print cards with barcodes</small></span></button>
+        <button data-go="stock"><i>📋</i><span><b>Stock check</b><small>Scan the shelves, find missing books</small></span></button>
+      </div></div>
     <div class="card" style="margin-top:18px"><h3 style="margin-top:0">🔎 Ask the library</h3>
       <div class="inrow"><input id="askQ" type="search" placeholder="Book name, author, student name or ID" autocomplete="off"><button class="btn pri" id="askGo">Ask</button></div>
       <p class="hint" style="margin:8px 0 0">Try: “Basheer”, “Wings of Fire”, “GV0003”, “Ameen”, “Class 9 B”, “available novel”.</p>
@@ -190,7 +208,7 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
         <label for="rBook">Book ID</label>
         <div class="inrow"><input id="rBook" autocomplete="off" autocapitalize="characters" placeholder="Scan or type"><button class="scanb" data-scan="rBook" aria-label="Scan the book barcode to return"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></button></div>
         <div class="found" id="rBookF"></div>
-        <button class="btn block" id="returnBtn">Take the book back</button>
+        <div class="chips"><button class="btn" id="returnBtn" style="flex:1">Take the book back</button><button class="btn" id="renewBtn">Renew</button></div>
         <p class="hint" style="margin-top:10px">Scanning a book here takes it back at once.</p>
       </div>
     </div>
@@ -214,7 +232,7 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
 
   <section id="v-reports" class="view" hidden>
     <div class="vh"><h2>Reports</h2><div class="chips" id="rP"><button class="chip on" data-p="all">All time</button><button class="chip" data-p="month">This month</button><button class="chip" data-p="year">This year</button></div></div>
-    <div class="chips" id="rT" style="margin-bottom:14px"><button class="chip on" data-t="issued">With members now</button><button class="chip" data-t="overdue">Overdue</button><button class="chip" data-t="readers">Top readers</button><button class="chip" data-t="booksTop">Most read books</button><button class="chip" data-t="groups">By class</button><button class="chip" data-t="noread">Members not reading</button><button class="chip" data-t="never">Books never read</button><button class="chip" data-t="allBooks">All books</button><button class="chip" data-t="avail">Books in the library</button><button class="chip" data-t="without">Members without a book now</button><button class="chip" data-t="allMem">All members</button></div>
+    <div class="chips" id="rT" style="margin-bottom:14px"><button class="chip on" data-t="issued">With members now</button><button class="chip" data-t="overdue">Overdue</button><button class="chip" data-t="readers">Top readers</button><button class="chip" data-t="booksTop">Most read books</button><button class="chip" data-t="groups">By class</button><button class="chip" data-t="noread">Members not reading</button><button class="chip" data-t="never">Books never read</button><button class="chip" data-t="allBooks">All books</button><button class="chip" data-t="avail">Books in the library</button><button class="chip" data-t="without">Members without a book now</button><button class="chip" data-t="allMem">All members</button><button class="chip" data-t="fines">Fines</button><button class="chip" data-t="holds">Reservations</button></div>
     <div class="chips" style="margin-bottom:14px;align-items:center"><select id="rG" style="max-width:240px" hidden></select><button class="btn sm" id="rPrint">🖨 Print this report</button></div>
     <div id="repOut"></div>
   </section>
@@ -270,6 +288,66 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
     </div>
   </section>
 
+  <section id="v-rules" class="view" hidden>
+    <div class="vh"><h2>💰 Fines and limits</h2><button class="btn sm" data-go="dash">← Dashboard</button></div>
+    <div class="card sec">
+      <div class="grid2"><div class="f"><label for="ruDays">Loan days</label><input id="ruDays" type="number" min="1" max="120"></div><div class="f"><label for="ruFine">Fine for each late day (₹, 0 = no fine)</label><input id="ruFine" type="number" min="0" step="0.5"></div></div>
+      <div class="grid2"><div class="f"><label for="ruMax">Most books one member can keep (0 = no limit)</label><input id="ruMax" type="number" min="0" max="50"></div><div class="f"><label for="ruRen">Times a book can be renewed (0 = off)</label><input id="ruRen" type="number" min="0" max="10"></div></div>
+      <p class="hint">The fine is counted when the book comes back late and shown to the librarian. Renew a book on the Issue and return page.</p>
+      <p class="msg" id="ruMsg"></p><button class="btn pri" id="ruSave">Save</button>
+    </div>
+    <div class="card sec"><h3>Fines</h3><div id="fineList"></div></div>
+  </section>
+  <section id="v-holds" class="view" hidden>
+    <div class="vh"><h2>📌 Reservations</h2><button class="btn sm" data-go="dash">← Dashboard</button></div>
+    <div class="card sec">
+      <p class="hint" style="margin-top:0">When a book is with someone, another member can reserve it. When it comes back, the librarian is told to keep it for them, and only they can take it.</p>
+      <label for="hoBook">Book ID</label><div class="inrow"><input id="hoBook" autocapitalize="characters" autocomplete="off" placeholder="Scan or type"><button class="scanb" data-scan="hoBook" aria-label="Scan the book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></button></div><div class="found" id="hoBookF"></div>
+      <label for="hoMem">Member ID</label><div class="inrow"><input id="hoMem" autocapitalize="characters" autocomplete="off" placeholder="Scan or type"><button class="scanb" data-scan="hoMem" aria-label="Scan the member ID"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></button></div><div class="found" id="hoMemF"></div>
+      <p class="msg" id="hoMsg"></p><button class="btn pri" id="hoSave">Reserve</button>
+    </div>
+    <div class="list" id="holdList"></div>
+  </section>
+  <section id="v-remind" class="view" hidden>
+    <div class="vh"><h2>💬 WhatsApp reminders</h2><button class="btn sm" data-go="dash">← Dashboard</button></div>
+    <div class="card sec">
+      <div class="chips" id="reK" style="margin-bottom:10px"><button class="chip on" data-k="late">Late</button><button class="chip" data-k="soon">Due in 2 days</button></div>
+      <div class="f"><label for="reMsg">Message (the words in {brackets} change for each member)</label><textarea id="reMsg" rows="3"></textarea></div>
+      <p class="hint">Tap “WhatsApp” beside a name. WhatsApp opens with the message ready; just press send. Members need a phone number.</p>
+    </div>
+    <div class="list" id="remList"></div>
+  </section>
+  <section id="v-isbn" class="view" hidden>
+    <div class="vh"><h2>🔍 ISBN and covers</h2><button class="btn sm" data-go="dash">← Dashboard</button></div>
+    <div class="card sec">
+      <p class="hint" style="margin-top:0">Scan the ISBN barcode on the back of a book (it starts with 978 or 979). The title, author and cover picture come from the Open Library. Malayalam books may not be found; type them yourself.</p>
+      <label for="isQ">ISBN</label><div class="inrow"><input id="isQ" inputmode="numeric" autocomplete="off" placeholder="e.g. 9788173711466"><button class="scanb" data-scan="isQ" aria-label="Scan the ISBN barcode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></button><button class="btn pri" id="isGo">Find</button></div>
+      <div id="isOut"></div>
+    </div>
+    <div class="card sec"><h3>Books with covers</h3><p class="hint">Add the ISBN in a book's Edit window to show its cover everywhere.</p><div id="covList" class="list"></div></div>
+  </section>
+  <section id="v-cards" class="view" hidden>
+    <div class="vh"><h2>🪪 Member ID cards</h2><button class="btn sm" data-go="dash">← Dashboard</button></div>
+    <div class="card sec">
+      <div class="f"><label for="caG">Class / group</label><select id="caG"></select></div>
+      <div class="grid2"><div class="f"><label for="caFrom">From ID (optional)</label><input id="caFrom" autocapitalize="characters"></div><div class="f"><label for="caTo">To ID (optional)</label><input id="caTo" autocapitalize="characters"></div></div>
+      <p class="hint" id="caCount"></p>
+      <button class="btn pri" id="caPrint">Print ID cards</button>
+      <p class="hint" style="margin-top:10px">Bank-card size (8.6 × 5.4 cm), 10 cards on one A4 page, with the library name, member name, class and barcode. Print at “Actual size”.</p>
+    </div>
+  </section>
+  <section id="v-stock" class="view" hidden>
+    <div class="vh"><h2>📋 Stock check</h2><button class="btn sm" data-go="dash">← Dashboard</button></div>
+    <div class="card sec">
+      <p class="hint" style="margin-top:0">Go shelf by shelf and scan every book. Your scans are kept on this phone even if you close the page. At the end, see which books are missing.</p>
+      <div class="inrow"><input id="skIn" autocapitalize="characters" autocomplete="off" placeholder="Scan or type a book ID, then Enter"><button class="btn pri" id="skCam">📷 Scan books</button></div>
+      <div class="stockbig"><div><b id="skDone">0</b><span>Scanned</span></div><div><b id="skMiss" style="color:var(--err)">0</b><span>Not found yet</span></div><div><b id="skOut">0</b><span>With members</span></div></div>
+      <div class="chips"><button class="btn sm" id="skPrint">🖨 Print missing list</button><button class="btn sm red" id="skReset">Start a new check</button></div>
+    </div>
+    <div class="chips" id="skK" style="margin-bottom:10px"><button class="chip on" data-k="miss">Not found yet</button><button class="chip" data-k="done">Scanned</button><button class="chip" data-k="odd">Problems</button></div>
+    <div class="list" id="skList"></div>
+  </section>
+
   <section id="v-billing" class="view" hidden>
     <div class="vh"><h2>Plan and payment</h2></div>
     <div class="card sec" id="planNow"></div>
@@ -300,6 +378,7 @@ textarea{min-height:180px;font-family:ui-monospace,Consolas,monospace;font-size:
 <div class="overlay" id="ovBook" role="dialog" aria-modal="true" aria-labelledby="bkT"><div class="modal">
   <div class="mhead"><h2 id="bkT">Add a book</h2><button class="x" data-close aria-label="Close">✕</button></div>
   <div class="f"><label for="fbId">Book ID (barcode) *</label><div class="inrow"><input id="fbId" autocapitalize="characters" autocomplete="off"><button class="scanb" data-scan="fbId" aria-label="Scan the book barcode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></button></div><p class="hint" id="fbNext"></p></div>
+  <div class="f"><label for="fbIsbn">ISBN (optional: fills the details and the cover)</label><div class="inrow"><input id="fbIsbn" inputmode="numeric" autocomplete="off"><button class="scanb" data-scan="fbIsbn" aria-label="Scan the ISBN barcode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg></button><button class="btn sm" id="fbIsbnGo" type="button">Fill</button></div><p class="hint" id="fbIsbnMsg"></p></div>
   <div class="f"><label for="fbTitle">Title *</label><input id="fbTitle"></div>
   <div class="f"><label for="fbAuthor">Author</label><input id="fbAuthor"></div>
   <div class="grid2"><div class="f"><label for="fbLang">Language</label><input id="fbLang" list="dlLang"></div><div class="f"><label for="fbCat">Category</label><input id="fbCat" list="dlCat"></div></div>
@@ -406,10 +485,11 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   function openOv(id){closeAll();$(id).classList.add('on');setTimeout(function(){var i=$(id).querySelector('input,textarea');i&&i.focus()},60)}
   /* ---------- data ---------- */
   function call(body){body.t=getTok();return api(body).then(function(j){if(j.lib)setData(j);return j}).catch(function(err){if(err.session){setTok('');location.replace('index.html#login')}if(err.expired){go('billing')}throw err})}
-  var books={},mems={},open={};
+  var books={},mems={},open={},holdsBy={};
   function setData(j){D=j;books={};mems={};open={};
     j.books.forEach(function(b){books[b.id]=b}); j.members.forEach(function(m){mems[m.id]=m});
     j.loans.forEach(function(l){if(!l.back)open[l.book]=l});
+    holdsBy={};(j.holds||[]).forEach(function(h){(holdsBy[h.book]=holdsBy[h.book]||[]).push(h)});
     paint(); render();}
   function isOver(l){return !l.back&&l.due<today()}
   function paint(){
@@ -431,7 +511,7 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
     var mg=$('mG').value,lg=$('lG').value,rg=$('rG').value;$('mG').innerHTML=opts;$('lG').innerHTML=opts;$('rG').innerHTML=opts;$('mG').value=mg;$('lG').value=lg;$('rG').value=rg;
   }
   function bookName(id){return books[id]?books[id].title:id} function memName(id){return mems[id]?mems[id].name:id}
-  function render(){ if(!D)return; ({dash:rDash,circ:function(){},books:rBooks,members:rMems,reports:rRep,labels:rLabels,logins:rUsers,settings:rSettings,billing:rBilling}[view]||function(){})() }
+  function render(){ if(!D)return; ({dash:rDash,circ:function(){},books:rBooks,members:rMems,reports:rRep,labels:rLabels,logins:rUsers,settings:rSettings,billing:rBilling,rules:rRules,holds:rHolds,remind:rRemind,isbn:rIsbn,cards:rCards,stock:rStock}[view]||function(){})() }
   /* ---------- dashboard ---------- */
   function rDash(){
     var h=new Date().getHours(); $('hello').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+', '+D.me.name.split(' ')[0];
@@ -445,7 +525,7 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   /* ---------- issue / return ---------- */
   function showF(el,ok,t){el.className='found '+(ok?'ok':'bad');el.textContent=t}
   function chkBook(){var id=$('iBook').value.trim().toUpperCase(),b=books[id],f=$('iBookF');if(!id){f.textContent='';return}
-    if(!b)return showF(f,0,'No book with this ID.'); if(open[id])return showF(f,0,'“'+b.title+'” is already with '+memName(open[id].member)+'.'); showF(f,1,'✓ '+b.title+(b.author?' · '+b.author:''))}
+    if(!b)return showF(f,0,'No book with this ID.'); if(open[id])return showF(f,0,'“'+b.title+'” is already with '+memName(open[id].member)+'.'); showF(f,1,'✓ '+b.title+(b.author?' · '+b.author:'')+(holdsBy[id]?' · 📌 reserved for '+memName(holdsBy[id][0].member):''))}
   function chkMem(){var id=$('iMem').value.trim().toUpperCase(),m=mems[id],f=$('iMemF');if(!id){f.textContent='';return}
     if(!m)return showF(f,0,'No member with this ID.'); var n=D.loans.filter(function(l){return !l.back&&l.member===id}).length; showF(f,1,'✓ '+m.name+(m.group?' · '+m.group:'')+(n?' · has '+n+' book'+(n>1?'s':'')+' now':''))}
   function chkRet(){var id=$('rBook').value.trim().toUpperCase(),f=$('rBookF');if(!id){f.textContent='';return}var l=open[id];
@@ -456,14 +536,16 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   $('rBook').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();doReturn()}};
   function logLine(t,s,bad){var el=$('circLog');if(el.querySelector('.empty'))el.innerHTML='';el.insertAdjacentHTML('afterbegin','<div class="item"><div class="main"><b>'+t+'</b><small>'+s+'</small></div>'+(bad?'<span class="tag od">Late</span>':'')+'</div>')}
   var busy=false;
-  function doIssue(){if(busy)return;var b=$('iBook').value.trim(),m=$('iMem').value.trim();if(!b){toast('Scan the book first.',1);$('iBook').focus();return}if(!m){toast('Scan the member ID.',1);$('iMem').focus();return}
+  function doIssue(force){if(busy)return;var b=$('iBook').value.trim(),m=$('iMem').value.trim();if(!b){toast('Scan the book first.',1);$('iBook').focus();return}if(!m){toast('Scan the member ID.',1);$('iMem').focus();return}
     busy=true;$('issueBtn').disabled=true;$('issueBtn').textContent='Issuing…';
-    call({a:'issue',book:b,member:m}).then(function(j){var r=j.res;toast('Issued ✓');logLine('📤 '+esc(r.book),'to '+esc(r.member)+' · due '+dstr(r.due));$('iBook').value='';$('iMem').value='';$('iBookF').textContent='';$('iMemF').textContent='';$('iBook').focus()})
-      .catch(function(err){toast(err.message,1)}).then(function(){busy=false;$('issueBtn').disabled=false;$('issueBtn').textContent='Issue the book'})}
+    call({a:'issue',book:b,member:m,force:force===true}).then(function(j){var r=j.res;toast('Issued ✓');logLine('📤 '+esc(r.book),'to '+esc(r.member)+' · due '+dstr(r.due));$('iBook').value='';$('iMem').value='';$('iBookF').textContent='';$('iMemF').textContent='';$('iBook').focus()})
+      .catch(function(err){if(/^RESERVED:/.test(err.message)){var f=$('iBookF');f.className='found bad';f.innerHTML=esc(err.message.replace(/^RESERVED: /,''))+' <button class="btn sm" id="forceIssue" type="button">Give anyway</button>';$('forceIssue').onclick=function(){doIssue(true)};return}toast(err.message,1)}).then(function(){busy=false;$('issueBtn').disabled=false;$('issueBtn').textContent='Issue the book'})}
   function doReturn(){if(busy)return;var b=$('rBook').value.trim();if(!b){toast('Scan the book.',1);return}busy=true;$('returnBtn').disabled=true;
-    call({a:'return',book:b}).then(function(j){var r=j.res;toast('Returned ✓');logLine('📥 '+esc(r.book),'from '+esc(r.member),r.late);$('rBook').value='';$('rBookF').textContent='';$('rBook').focus()})
+    call({a:'return',book:b}).then(function(j){var r=j.res;toast(r.fine?'Returned ✓ Collect fine '+money(r.fine):'Returned ✓',!!r.fine);logLine('📥 '+esc(r.book),'from '+esc(r.member)+(r.lateDays?' · '+r.lateDays+' day'+(r.lateDays>1?'s':'')+' late':'')+(r.fine?' · <b>fine '+money(r.fine)+'</b>':'')+(r.hold?' · 📌 keep it for <b>'+esc(r.hold)+'</b> (reserved)':''),r.late);$('rBook').value='';$('rBookF').textContent='';$('rBook').focus()})
       .catch(function(err){toast(err.message,1)}).then(function(){busy=false;$('returnBtn').disabled=false})}
-  $('issueBtn').onclick=doIssue;$('returnBtn').onclick=doReturn;
+  $('issueBtn').onclick=function(){doIssue(false)};
+  $('renewBtn').onclick=function(){if(busy)return;var b=$('rBook').value.trim();if(!b){toast('Scan the book to renew.',1);$('rBook').focus();return}busy=true;$('renewBtn').disabled=true;
+    call({a:'renew',book:b}).then(function(j){toast('Renewed ✓ New due date '+dstr(j.res.due));logLine('🔁 '+esc(j.res.book),'renewed · new due date '+dstr(j.res.due));$('rBook').value='';$('rBookF').textContent=''}).catch(function(err){toast(err.message,1)}).then(function(){busy=false;$('renewBtn').disabled=false})};$('returnBtn').onclick=doReturn;
   /* ---------- books ---------- */
   $('bQ').oninput=rBooks;
   $('bF').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;bF=c.dataset.f;[].forEach.call($('bF').children,function(x){x.classList.toggle('on',x===c)});rBooks()};
@@ -473,19 +555,19 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
       .sort(function(a,b){return String(a.id).localeCompare(String(b.id),undefined,{numeric:true})});
     $('bCount').textContent=l.length+' of '+D.books.length+' books';
     $('bookList').innerHTML=l.length?l.slice(0,400).map(function(b){var o=open[b.id];
-      return '<div class="item"><div class="main"><b>'+esc(b.title)+'</b><small>'+esc(b.id)+(b.author?' · '+esc(b.author):'')+(b.cat?' · '+esc(b.cat):'')+(b.lang?' · '+esc(b.lang):'')+(b.shelf?' · '+esc(b.shelf):'')+'</small>'+
+      return '<div class="item">'+coverImg(b)+'<div class="main"><b>'+esc(b.title)+'</b><small>'+esc(b.id)+(b.author?' · '+esc(b.author):'')+(b.cat?' · '+esc(b.cat):'')+(b.lang?' · '+esc(b.lang):'')+(b.shelf?' · '+esc(b.shelf):'')+'</small>'+(holdsBy[b.id]?'<small>📌 Reserved for '+esc(memName(holdsBy[b.id][0].member))+'</small>':'')+
         (o?'<small>With '+esc(memName(o.member))+' · due '+dstr(o.due)+'</small>':'')+'</div><div class="acts">'+(o?'<span class="tag '+(isOver(o)?'od':'is')+'">'+(isOver(o)?'Overdue':'Issued')+'</span>':'<span class="tag av">Available</span>')+
         '<button class="btn sm" data-bedit="'+esc(b.id)+'">Edit</button><button class="btn sm" data-bhist="'+esc(b.id)+'">History</button></div></div>'}).join('')+(l.length>400?'<p class="hint">Showing the first 400. Search to find more.</p>':''):'<div class="empty">No books. Tap “+ Add a book”.</div>';
   }
   $('bookList').onclick=function(e){var b=e.target.closest('[data-bedit]');if(b)openBook(books[b.dataset.bedit]);var h=e.target.closest('[data-bhist]');if(h)hist('book',h.dataset.bhist)};
   function nextId(list,cur){var best=null;list.forEach(function(x){var m=String(x.id).match(/^(.*?)(\d+)$/);if(!m)return;var n=parseInt(m[2],10);if(!best||n>best.n)best={p:m[1],n:n,w:m[2].length}});return best?best.p+String(best.n+1).padStart(best.w,'0'):''}
   function openBook(b){editBook=b;$('bkT').textContent=b?'Edit book':'Add a book';
-    $('fbId').value=b?b.id:'';$('fbTitle').value=b?b.title:'';$('fbAuthor').value=b?b.author:'';$('fbLang').value=b?b.lang:'';$('fbCat').value=b?b.cat:'';$('fbPrice').value=b?b.price:'';$('fbShelf').value=b?b.shelf:'';$('fbSerial').value=b?b.serial:'';
+    $('fbId').value=b?b.id:'';$('fbTitle').value=b?b.title:'';$('fbAuthor').value=b?b.author:'';$('fbLang').value=b?b.lang:'';$('fbCat').value=b?b.cat:'';$('fbPrice').value=b?b.price:'';$('fbShelf').value=b?b.shelf:'';$('fbSerial').value=b?b.serial:'';$('fbIsbn').value=b?(b.isbn||''):'';$('fbIsbnMsg').textContent='';
     var n=nextId(D.books);$('fbNext').textContent=!b&&n?'Next free ID: '+n+' (tap to use)':'';$('fbNext').onclick=function(){if(!editBook&&n)$('fbId').value=n};
     $('fbSaveNext').hidden=!!b;$('fbMsg').textContent='';
     var del=$('fbDel');if(!del){del=document.createElement('button');del.className='btn red';del.id='fbDel';del.textContent='Delete book';$('fbSave').parentNode.appendChild(del)}del.hidden=!b;del.dataset.sure='';del.textContent='Delete book';
     openOv('ovBook')}
-  function saveBook(next){var b={old:editBook?editBook.id:'',id:$('fbId').value,title:$('fbTitle').value,author:$('fbAuthor').value,lang:$('fbLang').value,cat:$('fbCat').value,price:$('fbPrice').value,shelf:$('fbShelf').value,serial:$('fbSerial').value};
+  function saveBook(next){var b={old:editBook?editBook.id:'',id:$('fbId').value,title:$('fbTitle').value,author:$('fbAuthor').value,lang:$('fbLang').value,cat:$('fbCat').value,price:$('fbPrice').value,shelf:$('fbShelf').value,serial:$('fbSerial').value,isbn:$('fbIsbn').value};
     $('fbMsg').textContent='';var btn=next?$('fbSaveNext'):$('fbSave');btn.disabled=true;
     call({a:'book.save',book:b}).then(function(){toast('Saved ✓');if(next){var keep={lang:b.lang,cat:b.cat,shelf:b.shelf};openBook(null);$('fbLang').value=keep.lang;$('fbCat').value=keep.cat;$('fbShelf').value=keep.shelf;var n=nextId(D.books);if(n)$('fbId').value=n;$('fbTitle').focus()}else closeAll()})
       .catch(function(err){$('fbMsg').textContent=err.message}).then(function(){btn.disabled=false})}
@@ -515,12 +597,19 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
       .catch(function(err){$('fmMsg').textContent=err.message}).then(function(){btn.disabled=false})}
   $('fmSave').onclick=function(){saveMem(false)};$('fmSaveNext').onclick=function(){saveMem(true)};
   /* ---------- add many ---------- */
-  var COLS={book:['id','title','author','lang','cat','price','shelf','serial'],member:['id','name','group','phone']};
+  var COLS={book:['id','title','author','lang','cat','price','shelf','serial','isbn'],member:['id','name','group','phone']};
   function openBulk(k){bulkK=k;$('buT').textContent=k==='book'?'Add many books':'Add many students';
-    $('buHelp').innerHTML=k==='book'?'Copy the columns from Excel or Google Sheets and paste here, one book on each line, in this order:<br><b>Book ID · Title · Author · Language · Category · Price · Shelf · Serial</b>. Only the first two are needed.':'Copy from Excel or Google Sheets and paste here, one student on each line, in this order:<br><b>Member ID · Name · Class / group · Phone</b>. Only the first two are needed.';
+    $('buHelp').innerHTML=k==='book'?'Copy the columns from Excel or Google Sheets and paste here, one book on each line, in this order:<br><b>Book ID · Title · Author · Language · Category · Price · Shelf · Serial</b>. Only the first two are needed.<br>✨ <b>Easier:</b> copy the Excel heading row too (like “Book ID, Title, Author”). Then the columns can be in any order.':'Copy from Excel or Google Sheets and paste here, one student on each line, in this order:<br><b>Member ID · Name · Class / group · Phone</b>. Only the first two are needed.<br>✨ <b>Easier:</b> copy the Excel heading row too (like “ID, Name, Class, Phone”). Then the columns can be in any order.';
     $('buText').value='';$('buPrev').textContent='';$('buMsg').textContent='';openOv('ovBulk')}
-  function parseBulk(){var c=COLS[bulkK];return $('buText').value.split(/\r?\n/).map(function(line){var p=line.split(/\t|\s*,\s*(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(function(x){return x.replace(/^"|"$/g,'').trim()});var o={};c.forEach(function(k,i){o[k]=p[i]||''});return o}).filter(function(o){return o.id&&!/^(book ?id|member ?id|id)$/i.test(o.id)})}
-  $('buText').oninput=function(){var l=parseBulk();$('buPrev').textContent=l.length?l.length+' found. First: '+l[0].id+' · '+(l[0].title||l[0].name||''):''};
+  var HEADS={id:/^(book ?id|member ?id|id|id ?no|acc(ession)?( ?no)?|barcode|code|adm(ission)?( ?no)?|snec ?uid|uid|card( ?no)?|id card( ?no)?|reg(ister)?( ?no)?)$/,title:/^(title|book|book ?name|name of (the )?book|book title)$/,author:/^(author|writer|authors?)$/,lang:/^(lang|language|medium)$/,cat:/^(category|subject|genre|type|section)$/,price:/^(price|cost|rate|amount|mrp)$/,shelf:/^(shelf|rack|location|almirah|cupboard)$/,serial:/^(serial|sl|sl ?no|s ?no|no|number|#)$/,isbn:/^isbn( ?no)?$/,name:/^(name|student|student ?name|member|member ?name|full ?name|name of (the )?student)$/,group:/^(class|group|division|batch|std|standard|class ?\/ ?group|course)$/,phone:/^(phone|mobile|contact|whatsapp|phone ?no|mobile ?no|ph)$/};
+  function splitLine(line){return line.split(/\t|\s*,\s*(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(function(x){return x.replace(/^"|"$/g,'').trim()})}
+  function headMap(cells){var c=COLS[bulkK],map={},hit=0;cells.forEach(function(h,i){var k=String(h).toLowerCase().replace(/[.:*]/g,'').replace(/\s+/g,' ').trim();c.forEach(function(f){if(map[f]===undefined&&HEADS[f]&&HEADS[f].test(k)){map[f]=i;hit++}})});
+    if(bulkK==='member'&&map.name===undefined&&map.title!==undefined)map.name=map.title;return hit>=2&&map.id!==undefined?map:null}
+  function parseBulk(){var c=COLS[bulkK],lines=$('buText').value.split(/\r?\n/).filter(function(l){return l.trim()}),map=null;
+    if(lines.length){map=headMap(splitLine(lines[0]));if(map)lines=lines.slice(1)}
+    parseBulk.map=map;
+    return lines.map(function(line){var p=splitLine(line),o={};c.forEach(function(k,i){var j=map?map[k]:i;o[k]=j===undefined?'':(p[j]||'')});return o}).filter(function(o){return o.id&&!/^(book ?id|member ?id|id)$/i.test(o.id)})}
+  $('buText').oninput=function(){var l=parseBulk(),m=parseBulk.map;$('buPrev').textContent=l.length?(m?'✓ Column names found in the first line: '+Object.keys(m).join(', ')+'. ':'')+l.length+' found. First: '+l[0].id+' · '+(l[0].title||l[0].name||''):''};
   $('buSave').onclick=function(){var l=parseBulk();if(!l.length){$('buMsg').className='msg err';$('buMsg').textContent='Paste the list first.';return}
     var b=$('buSave');b.disabled=true;b.textContent='Adding…';
     call({a:bulkK+'.bulk',list:l}).then(function(j){var r=j.res;$('buMsg').className='msg ok';$('buMsg').textContent=r.added+' added ✓'+(r.skipped.length?' · '+r.skipped.length+' skipped (ID already there or missing name): '+r.skipped.slice(0,10).join(', '):'');$('buText').value=''})
@@ -539,7 +628,7 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   function barsHTML(rows){var mx=Math.max.apply(null,rows.map(function(r){return r[1]}).concat([1]));return '<div class="bars2">'+rows.map(function(r){return '<div class="br"><b title="'+esc(r[0])+'">'+esc(r[0])+'</b><div class="t"><i style="width:'+Math.round(r[1]*100/mx)+'%"></i></div><span>'+r[1]+'</span></div>'}).join('')+'</div>'}
   function rRep(){[].forEach.call($('rT').children,function(x){x.classList.toggle('on',x.dataset.t===rT)});
     var L=D.loans.filter(function(l){return inP(l.at)}),o=$('repOut'),h='';
-    var noP=['issued','overdue','never','allBooks','avail','without','allMem'];$('rP').style.visibility=noP.indexOf(rT)>-1?'hidden':'visible';$('rG').hidden=['noread','without','allMem'].indexOf(rT)<0;
+    var noP=['issued','overdue','never','allBooks','avail','without','allMem','holds'];$('rP').style.visibility=noP.indexOf(rT)>-1?'hidden':'visible';$('rG').hidden=['noread','without','allMem'].indexOf(rT)<0;
     if(rT==='issued'||rT==='overdue'){var l=D.loans.filter(function(x){return !x.back&&(rT==='issued'||isOver(x))}).sort(function(a,b){return a.due<b.due?-1:1});
       h=l.length?'<div class="scroll card" style="padding:6px 10px"><table><thead><tr><th>Book</th><th>Member</th><th>Due</th></tr></thead><tbody>'+l.map(function(x){var m=mems[x.member]||{};return '<tr><td>'+esc(bookName(x.book))+'<br><small class="muted">'+esc(x.book)+'</small></td><td>'+esc(memName(x.member))+'<br><small class="muted">'+esc(m.group||'')+(m.phone?' · <a href="tel:'+esc(m.phone)+'">'+esc(m.phone)+'</a>':'')+'</small></td><td>'+(isOver(x)?'<span class="tag od">'+dstr(x.due)+'</span>':dstr(x.due))+'</td></tr>'}).join('')+'</tbody></table></div>':'<div class="empty">'+(rT==='overdue'?'No overdue books 🎉':'No books with members now.')+'</div>'}
     else if(rT==='readers'){var c={};L.forEach(function(x){c[x.member]=(c[x.member]||0)+1});var r=Object.keys(c).map(function(k){return [memName(k)+(mems[k]&&mems[k].group?' · '+mems[k].group:''),c[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,30);h=r.length?barsHTML(r):'<div class="empty">No reading yet.</div>'}
@@ -547,6 +636,8 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
     else if(rT==='groups'){var c3={},n3={};D.members.forEach(function(m){var g=m.group||'No class';n3[g]=(n3[g]||0)+1});L.forEach(function(x){var g=(mems[x.member]||{}).group||'No class';c3[g]=(c3[g]||0)+1});
       var r3=Object.keys(n3).map(function(g){return [g+' ('+n3[g]+' members)',c3[g]||0]}).sort(function(a,b){return b[1]-a[1]});h='<p class="hint">Books borrowed by each class.</p>'+(r3.length?barsHTML(r3):'<div class="empty">No members.</div>')}
     else if(rT==='noread'){h=noReadHTML()}
+    else if(rT==='fines'){h=finesHTML(L)}
+    else if(rT==='holds'){h=holdsHTML(false)}
     else if(rT==='allBooks'||rT==='avail'){var bl=D.books.slice().sort(function(a,b){return String(a.id).localeCompare(String(b.id),undefined,{numeric:true})});if(rT==='avail')bl=bl.filter(function(b){return !open[b.id]});
       h='<p class="hint"><b>'+bl.length+'</b> books'+(rT==='avail'?' in the library now ('+(D.books.length-bl.length)+' with members)':' ('+Object.keys(open).length+' with members)')+'.</p>'+(bl.length?'<div class="scroll card" style="padding:6px 10px"><table><thead><tr><th>#</th><th>Book</th><th>ID</th><th>Author</th><th>Language</th><th>Category</th><th>Shelf</th>'+(rT==='allBooks'?'<th>Status</th>':'')+'</tr></thead><tbody>'+bl.map(function(b,i){var o=open[b.id];return '<tr><td>'+(i+1)+'</td><td>'+esc(b.title)+'</td><td>'+esc(b.id)+'</td><td>'+esc(b.author)+'</td><td>'+esc(b.lang)+'</td><td>'+esc(b.cat)+'</td><td>'+esc(b.shelf)+'</td>'+(rT==='allBooks'?'<td>'+(o?'With '+esc(memName(o.member)):'In library')+'</td>':'')+'</tr>'}).join('')+'</tbody></table></div>':'<div class="empty">No books.</div>')}
     else if(rT==='without'||rT==='allMem'){var hold={},tot={},g=$('rG').value;D.loans.forEach(function(x){tot[x.member]=(tot[x.member]||0)+1;if(!x.back)hold[x.member]=(hold[x.member]||0)+1});
@@ -555,7 +646,7 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
     else if(rT==='never'){var used={};D.loans.forEach(function(x){used[x.book]=1});var nv=D.books.filter(function(b){return !used[b.id]});h='<p class="hint">'+nv.length+' books were never borrowed.</p><div class="list">'+nv.slice(0,300).map(function(b){return '<div class="item"><div class="main"><b>'+esc(b.title)+'</b><small>'+esc(b.id)+(b.author?' · '+esc(b.author):'')+'</small></div></div>'}).join('')+'</div>'}
     o.innerHTML=h;
   }
-  var RN={issued:'Books with members now',overdue:'Overdue books',readers:'Top readers',booksTop:'Most read books',groups:'Books borrowed by each class',noread:'Members who did not take a book',never:'Books never read',allBooks:'All books',avail:'Books in the library now',without:'Members without a book now',allMem:'All members'},PN={all:'All time',month:'This month',year:'This year'};
+  var RN={issued:'Books with members now',overdue:'Overdue books',readers:'Top readers',booksTop:'Most read books',groups:'Books borrowed by each class',noread:'Members who did not take a book',never:'Books never read',allBooks:'All books',avail:'Books in the library now',without:'Members without a book now',allMem:'All members',fines:'Fines',holds:'Reservations'},PN={all:'All time',month:'This month',year:'This year'};
   function noReadHTML(){var L=D.loans.filter(function(l){return inP(l.at)}),took={},g=$('rG').value;L.forEach(function(x){took[x.member]=1});
     var nr=D.members.filter(function(m){return !took[m.id]&&(!g||m.group===g)}),all=D.members.filter(function(m){return !g||m.group===g}).length,by={};
     nr.forEach(function(m){var k=m.group||'No class';(by[k]=by[k]||[]).push(m)});
@@ -573,7 +664,7 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
       return '<table><thead><tr>'+head.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r,i){return '<tr><td>'+(i+1)+'</td>'+r.map(function(v){return '<td>'+esc(v)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'}
     if(rT==='never'){var used={};D.loans.forEach(function(x){used[x.book]=1});return '<table><thead><tr><th>#</th><th>Book</th><th>ID</th><th>Author</th><th>Shelf</th></tr></thead><tbody>'+D.books.filter(function(b){return !used[b.id]}).map(function(b,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(b.title)+'</td><td>'+esc(b.id)+'</td><td>'+esc(b.author)+'</td><td>'+esc(b.shelf)+'</td></tr>'}).join('')+'</tbody></table>'}
     var x=document.createElement('div');x.innerHTML=$('repOut').innerHTML;[].forEach.call(x.querySelectorAll('a'),function(a){a.replaceWith(document.createTextNode(a.textContent))});return x.innerHTML}
-  $('rPrint').onclick=function(){var pr=$('repPrint'),g=$('rG').value,per=['issued','overdue','never','allBooks','avail','without','allMem'].indexOf(rT)>-1?'':' · '+PN[rP];
+  $('rPrint').onclick=function(){var pr=$('repPrint'),g=$('rG').value,per=['issued','overdue','never','allBooks','avail','without','allMem','holds'].indexOf(rT)>-1?'':' · '+PN[rP];
     pr.innerHTML='<h1>'+esc(D.lib.name)+'</h1><p class="sub"><b>'+esc(RN[rT])+'</b>'+per+(['noread','without','allMem'].indexOf(rT)>-1&&g?' · '+esc(g):'')+' · printed '+dstr(Date.now())+'</p>'+printTable();
     document.body.classList.add('prRep');setTimeout(function(){window.print()},100)};
   window.addEventListener('afterprint',function(){document.body.classList.remove('prRep')});
@@ -583,7 +674,7 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
   function lList(){var f=$('lFrom').value.trim().toUpperCase(),t=$('lTo').value.trim().toUpperCase(),g=$('lG').value,cmp=function(a,b){return String(a).localeCompare(String(b),undefined,{numeric:true})};
     var l=(lK==='book'?D.books:D.members.filter(function(m){return !g||m.group===g})).filter(function(x){return (!f||cmp(x.id,f)>=0)&&(!t||cmp(x.id,t)<=0)}).sort(function(a,b){return cmp(a.id,b.id)});return l}
   function rLabels(){$('lG').parentNode.hidden=lK!=='member';$('lCount').textContent=lList().length+' labels'}
-  $('lPrint').onclick=function(){document.body.classList.remove('prRep');var l=lList();if(!l.length){toast('Nothing to print.',1);return}if(!window.JsBarcode){toast('Please wait a moment and try again.',1);return}
+  $('lPrint').onclick=function(){document.body.classList.remove('prRep');$('labels').className='';var l=lList();if(!l.length){toast('Nothing to print.',1);return}if(!window.JsBarcode){toast('Please wait a moment and try again.',1);return}
     var box=$('labels');box.innerHTML=l.map(function(x,i){return '<div class="lb"><b>'+esc(lK==='book'?x.title:x.name)+'</b><svg id="lbc'+i+'"></svg></div>'}).join('');
     l.forEach(function(x,i){try{JsBarcode('#lbc'+i,String(x.id),{format:'CODE128',height:42,width:1.6,fontSize:13,margin:2})}catch(e){}});
     setTimeout(function(){window.print()},150)};
@@ -615,6 +706,84 @@ function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(
     o.innerHTML=h||'<p class="hint">Nothing found for “'+esc($('askQ').value)+'”.</p>'}
   $('askGo').onclick=askRun;$('askQ').onkeydown=function(e){if(e.key==='Enter')askRun()};$('askQ').oninput=function(){if(!$('askQ').value)$('askOut').innerHTML=''};
   $('copySelf').onclick=function(){var i=$('selfUrl');i.select();try{navigator.clipboard.writeText(i.value)}catch(e){document.execCommand('copy')}toast('Link copied ✓')};
+  /* ---------- library settings tools ---------- */
+  function coverImg(b,big){return b.isbn?'<img class="cover" loading="lazy" alt="" src="https://covers.openlibrary.org/b/isbn/'+encodeURIComponent(b.isbn)+'-'+(big?'M':'S')+'.jpg?default=false" onerror="this.remove()">':''}
+  function st(){return D.lib.settings}
+  function lateDays(l){var d=Math.round((new Date(today()).getTime()-new Date(l.due).getTime())/86400000);return Math.max(0,d)}
+  function finesHTML(L){var f=(L||D.loans).filter(function(l){return l.fine>0}).sort(function(a,b){return b.back-a.back}),tot=f.reduce(function(s,l){return s+l.fine},0);
+    var now=st().fine?D.loans.filter(isOver):[],est=now.reduce(function(s,l){return s+lateDays(l)*st().fine},0);
+    var h='<p class="hint">'+(st().fine?'Fine: '+money(st().fine)+' for each late day.':'Fines are off. Turn them on in Library settings → Fines and limits.')+'</p>';
+    if(now.length)h+='<h4>Late now (fine so far)</h4><div class="scroll card" style="padding:6px 10px"><table><thead><tr><th>Member</th><th>Book</th><th>Days late</th><th>Fine</th></tr></thead><tbody>'+now.map(function(l){return '<tr><td>'+esc(memName(l.member))+'</td><td>'+esc(bookName(l.book))+'</td><td>'+lateDays(l)+'</td><td>'+money(lateDays(l)*st().fine)+'</td></tr>'}).join('')+'<tr><td colspan="3"><b>Total</b></td><td><b>'+money(est)+'</b></td></tr></tbody></table></div>';
+    h+='<h4>Fines on returned books</h4>'+(f.length?'<div class="scroll card" style="padding:6px 10px"><table><thead><tr><th>Member</th><th>Book</th><th>Returned</th><th>Fine</th></tr></thead><tbody>'+f.map(function(l){return '<tr><td>'+esc(memName(l.member))+'</td><td>'+esc(bookName(l.book))+'</td><td>'+dstr(l.back)+'</td><td>'+money(l.fine)+'</td></tr>'}).join('')+'<tr><td colspan="3"><b>Total</b></td><td><b>'+money(tot)+'</b></td></tr></tbody></table></div>':'<div class="empty">No fines yet.</div>');
+    return h}
+  function holdsHTML(rm){var hs=D.holds||[];if(!hs.length)return '<div class="empty">No reservations now.</div>';
+    return '<div class="list">'+hs.map(function(h,i){var o=open[h.book],q=holdsBy[h.book].indexOf(h)+1;return '<div class="item">'+coverImg(books[h.book]||{})+'<div class="main"><b>'+esc(bookName(h.book))+'</b><small>For '+esc(memName(h.member))+' ('+esc(h.member)+') · '+dstr(h.at)+(q>1?' · number '+q+' in the queue':'')+'</small><small>'+(o?'Now with '+esc(memName(o.member))+' · due '+dstr(o.due):'✅ In the library: keep it for them')+'</small></div>'+(rm?'<div class="acts"><button class="btn sm red" data-hdel="'+esc(h.id)+'">Cancel</button></div>':'')+'</div>'}).join('')+'</div>'}
+  /* fines and limits */
+  function rRules(){if(document.activeElement&&document.activeElement.closest&&document.activeElement.closest('#v-rules .sec'))return;var s=st();$('ruDays').value=s.loanDays;$('ruFine').value=s.fine||0;$('ruMax').value=s.maxBooks||0;$('ruRen').value=s.maxRenew||0;$('fineList').innerHTML=finesHTML();
+    var adm=D.me.role==='admin'||D.me.role==='demo';['ruDays','ruFine','ruMax','ruRen'].forEach(function(i){$(i).disabled=!adm});$('ruSave').hidden=!adm;if(!adm){$('ruMsg').className='msg';$('ruMsg').textContent='Only the library admin can change these.'}}
+  $('ruSave').onclick=function(){$('ruMsg').textContent='';call({a:'settings',settings:{name:D.lib.name,inst:D.lib.inst,color:D.lib.settings.color,loanDays:$('ruDays').value,fine:$('ruFine').value,maxBooks:$('ruMax').value,maxRenew:$('ruRen').value}}).then(function(){$('ruMsg').className='msg ok';$('ruMsg').textContent='Saved ✓'}).catch(function(err){$('ruMsg').className='msg err';$('ruMsg').textContent=err.message})};
+  /* reservations */
+  function rHolds(){$('holdList').innerHTML=holdsHTML(true)}
+  function chkHo(){var b=$('hoBook').value.trim().toUpperCase(),m=$('hoMem').value.trim().toUpperCase();
+    if(b){if(!books[b])showF($('hoBookF'),0,'No book with this ID.');else showF($('hoBookF'),1,'✓ '+books[b].title+(open[b]?' · now with '+memName(open[b].member):' · in the library now'))}else $('hoBookF').textContent='';
+    if(m){if(!mems[m])showF($('hoMemF'),0,'No member with this ID.');else showF($('hoMemF'),1,'✓ '+mems[m].name)}else $('hoMemF').textContent=''}
+  $('hoBook').oninput=chkHo;$('hoMem').oninput=chkHo;$('hoBook').onkeydown=function(e){if(e.key==='Enter'){chkHo();$('hoMem').focus()}};$('hoMem').onkeydown=function(e){if(e.key==='Enter')chkHo()};
+  $('hoSave').onclick=function(){$('hoMsg').textContent='';call({a:'hold',book:$('hoBook').value,member:$('hoMem').value}).then(function(){toast('Reserved ✓');$('hoBook').value='';$('hoMem').value='';chkHo()}).catch(function(err){$('hoMsg').className='msg err';$('hoMsg').textContent=err.message})};
+  $('holdList').onclick=function(e){var d=e.target.closest('[data-hdel]');if(!d)return;if(!d.dataset.sure){d.dataset.sure='1';d.textContent='Tap again';return}call({a:'hold.del',id:d.dataset.hdel}).then(function(){toast('Cancelled')}).catch(function(err){toast(err.message,1)})};
+  /* WhatsApp reminders */
+  var reK='late',WA={late:'Assalamu alaikum {name}. The library book “{book}” was due on {due}. Please return it soon. – {library}',soon:'Assalamu alaikum {name}. Reminder: the library book “{book}” is due on {due}. – {library}'};
+  function waTpl(){try{return localStorage.getItem('ls_wa_'+reK)||WA[reK]}catch(e){return WA[reK]}}
+  $('reK').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;reK=c.dataset.k;[].forEach.call($('reK').children,function(x){x.classList.toggle('on',x===c)});$('reMsg').value=waTpl();rRemind()};
+  $('reMsg').oninput=function(){try{localStorage.setItem('ls_wa_'+reK,$('reMsg').value)}catch(e){}rRemind(true)};
+  function waNum(p){var d=String(p||'').replace(/\D/g,'');if(d.length===10)d='91'+d;if(d.length===11&&d[0]==='0')d='91'+d.slice(1);return d.length>=11?d:''}
+  function rRemind(keep){if(!keep)$('reMsg').value=waTpl();var soon=day(2),l=D.loans.filter(function(x){return !x.back&&(reK==='late'?isOver(x):(!isOver(x)&&x.due<=soon))}).sort(function(a,b){return a.due<b.due?-1:1});
+    $('remList').innerHTML=l.length?l.map(function(x){var m=mems[x.member]||{},n=waNum(m.phone),t=$('reMsg').value.replace(/\{name\}/g,m.name||x.member).replace(/\{book\}/g,bookName(x.book)).replace(/\{due\}/g,dstr(x.due)).replace(/\{library\}/g,D.lib.name).replace(/\{fine\}/g,st().fine?money(lateDays(x)*st().fine):'');
+      return '<div class="item"><div class="main"><b>'+esc(m.name||x.member)+'</b><small>'+esc(bookName(x.book))+' · due '+dstr(x.due)+(isOver(x)?' · '+lateDays(x)+' days late':'')+'</small><small>'+(m.phone?esc(m.phone):'No phone number')+'</small></div><div class="acts">'+(n?'<a class="btn sm wa" target="_blank" rel="noopener" href="https://wa.me/'+n+'?text='+encodeURIComponent(t)+'">WhatsApp</a>':'<button class="btn sm" data-medit2="'+esc(x.member)+'">Add phone</button>')+'</div></div>'}).join(''):'<div class="empty">'+(reK==='late'?'No late books 🎉':'No books due in the next 2 days.')+'</div>'}
+  $('remList').onclick=function(e){var b=e.target.closest('[data-medit2]');if(b)openMem(mems[b.dataset.medit2])};
+  function day(n){var d=new Date(Date.now()+n*86400000);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+  /* ISBN */
+  function isbnClean(v){return String(v||'').replace(/[^0-9Xx]/g,'').toUpperCase()}
+  function isbnLookup(isbn){isbn=isbnClean(isbn);if(isbn.length!==10&&isbn.length!==13)return Promise.reject(new Error('An ISBN has 10 or 13 digits.'));
+    return fetch('https://openlibrary.org/api/books?bibkeys=ISBN:'+isbn+'&format=json&jscmd=data').then(function(r){return r.json()}).then(function(j){var x=j['ISBN:'+isbn];if(!x)throw 0;
+      return {isbn:isbn,title:x.title+(x.subtitle?': '+x.subtitle:''),author:(x.authors||[]).map(function(a){return a.name}).join(', '),cat:((x.subjects||[])[0]||{}).name||'',cover:(x.cover||{}).medium||'',pub:((x.publishers||[])[0]||{}).name||'',year:x.publish_date||''}})
+    .catch(function(){return fetch('https://www.googleapis.com/books/v1/volumes?q=isbn:'+isbn).then(function(r){return r.json()}).then(function(j){var v=j.items&&j.items[0]&&j.items[0].volumeInfo;if(!v)throw new Error('This ISBN was not found. Please type the details yourself.');
+      return {isbn:isbn,title:v.title+(v.subtitle?': '+v.subtitle:''),author:(v.authors||[]).join(', '),cat:(v.categories||[])[0]||'',cover:((v.imageLinks||{}).thumbnail||'').replace('http:','https:'),pub:v.publisher||'',year:v.publishedDate||'',lang:v.language==='ml'?'Malayalam':v.language==='en'?'English':v.language==='ar'?'Arabic':''}})})}
+  var isFound=null;
+  function isGo(){var o=$('isOut');o.innerHTML='<p class="hint">Looking…</p>';var ex=D.books.filter(function(b){return b.isbn===isbnClean($('isQ').value)})[0];
+    isbnLookup($('isQ').value).then(function(x){isFound=x;o.innerHTML='<div class="isbnres">'+(x.cover?'<img alt="" src="'+esc(x.cover)+'">':'')+'<div style="flex:1;min-width:200px"><h3 style="margin:0 0 4px">'+esc(x.title)+'</h3><p class="muted" style="margin:0 0 4px">'+esc(x.author||'Unknown author')+'</p><p class="hint" style="margin:0 0 10px">'+esc([x.pub,x.year,x.cat].filter(Boolean).join(' · '))+'</p>'+(ex?'<p class="msg ok">Already in your library as '+esc(ex.id)+'.</p>':'<button class="btn pri" id="isAdd">+ Add this book</button>')+'</div></div>';
+      var a=$('isAdd');if(a)a.onclick=function(){openBook(null);$('fbIsbn').value=x.isbn;$('fbTitle').value=x.title;$('fbAuthor').value=x.author;if(x.cat)$('fbCat').value=x.cat;if(x.lang)$('fbLang').value=x.lang;var n=nextId(D.books);if(n)$('fbId').value=n}})
+    .catch(function(err){o.innerHTML='<p class="msg err">'+esc(err.message||'Not found.')+'</p>'})}
+  $('isGo').onclick=isGo;$('isQ').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();isGo()}};
+  function rIsbn(){var l=D.books.filter(function(b){return b.isbn});$('covList').innerHTML=l.length?l.slice(0,60).map(function(b){return '<div class="item">'+coverImg(b,1)+'<div class="main"><b>'+esc(b.title)+'</b><small>'+esc(b.id)+' · ISBN '+esc(b.isbn)+'</small></div></div>'}).join(''):'<div class="empty">No books with ISBN yet.</div>'}
+  function fillIsbn(){var m=$('fbIsbnMsg');m.textContent='Looking…';isbnLookup($('fbIsbn').value).then(function(x){$('fbIsbn').value=x.isbn;if(!$('fbTitle').value)$('fbTitle').value=x.title;if(!$('fbAuthor').value)$('fbAuthor').value=x.author;if(x.cat&&!$('fbCat').value)$('fbCat').value=x.cat;if(x.lang&&!$('fbLang').value)$('fbLang').value=x.lang;m.textContent='✓ Filled: '+x.title}).catch(function(err){m.textContent=err.message||'Not found.'})}
+  $('fbIsbnGo').onclick=fillIsbn;$('fbIsbn').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();fillIsbn()}};
+  /* member ID cards */
+  function caList(){var f=$('caFrom').value.trim().toUpperCase(),t=$('caTo').value.trim().toUpperCase(),g=$('caG').value,cmp=function(a,b){return String(a).localeCompare(String(b),undefined,{numeric:true})};
+    return D.members.filter(function(m){return (!g||m.group===g)&&(!f||cmp(m.id,f)>=0)&&(!t||cmp(m.id,t)<=0)}).sort(function(a,b){return cmp(a.id,b.id)})}
+  function rCards(){var v=$('caG').value;$('caG').innerHTML=$('mG').innerHTML;$('caG').value=v;$('caCount').textContent=caList().length+' cards'}
+  ['caG','caFrom','caTo'].forEach(function(i){$(i).oninput=rCards;$(i).onchange=rCards});
+  $('caPrint').onclick=function(){document.body.classList.remove('prRep');var l=caList();if(!l.length){toast('Nothing to print.',1);return}if(!window.JsBarcode){toast('Please wait a moment and try again.',1);return}
+    var box=$('labels');box.className='cards';box.innerHTML=l.map(function(m,i){return '<div class="idc"><div class="h">📚 '+esc(D.lib.name)+'</div><div class="n">'+esc(m.name)+'</div><div class="g">'+esc(m.group||'')+'</div><svg id="cbc'+i+'"></svg><div class="t">Library card · keep it safe</div></div>'}).join('');
+    l.forEach(function(m,i){try{JsBarcode('#cbc'+i,String(m.id),{format:'CODE128',height:38,width:1.5,fontSize:12,margin:0})}catch(e){}});
+    setTimeout(function(){window.print()},150)};
+  window.addEventListener('afterprint',function(){$('labels').className=''});
+  /* stock check */
+  var skK='miss';
+  function skKey(){return 'ls_stock_'+D.lib.id}
+  function skGet(){try{return JSON.parse(localStorage.getItem(skKey())||'{}')||{}}catch(e){return {}}}
+  function skPut(o){try{localStorage.setItem(skKey(),JSON.stringify(o))}catch(e){}}
+  function skAdd(id){id=String(id||'').trim().toUpperCase();if(!id)return;var o=skGet();o.ids=o.ids||{};o.at=o.at||Date.now();var known=!!books[id],dup=!!o.ids[id];o.ids[id]=Date.now();skPut(o);
+    toast(!known?'⚠ '+id+' is not in your books':dup?'Already scanned: '+bookName(id):'✓ '+bookName(id)+(open[id]?' (marked as with '+memName(open[id].member)+')':''),!known||!!open[id]);rStock()}
+  $('skIn').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();skAdd($('skIn').value);$('skIn').value=''}};
+  $('skCam').onclick=function(){startScan(function(t){skAdd(t)},true,'Scan the books one by one. Tap Close when done.')};
+  $('skK').onclick=function(e){var c=e.target.closest('.chip');if(!c)return;skK=c.dataset.k;[].forEach.call($('skK').children,function(x){x.classList.toggle('on',x===c)});rStock()};
+  function skCalc(){var ids=(skGet().ids)||{},miss=[],done=[],odd=[];D.books.forEach(function(b){if(ids[b.id]){done.push(b);if(open[b.id])odd.push({b:b,why:'Scanned on the shelf, but the software says it is with '+memName(open[b.id].member)+'. Take it back if it was returned.'})}else if(!open[b.id])miss.push(b)});
+    Object.keys(ids).forEach(function(id){if(!books[id])odd.push({b:{id:id,title:'Unknown ID '+id},why:'Not in your books. Add it, or check the label.'})});return {miss:miss,done:done,odd:odd,out:Object.keys(open).length}}
+  function rStock(){var c=skCalc(),o=skGet();$('skDone').textContent=c.done.length;$('skMiss').textContent=c.miss.length;$('skOut').textContent=c.out;
+    var l=skK==='miss'?c.miss.map(function(b){return {b:b,why:(b.shelf?b.shelf+' · ':'')+'not scanned yet'}}):skK==='done'?c.done.map(function(b){return {b:b,why:'✓ found'}}):c.odd;
+    $('skList').innerHTML=(o.at?'<p class="hint">Check started '+dstr(o.at)+'.</p>':'')+(l.length?l.slice(0,500).map(function(x){return '<div class="item"><div class="main"><b>'+esc(x.b.title)+'</b><small>'+esc(x.b.id)+(x.b.author?' · '+esc(x.b.author):'')+'</small><small>'+esc(x.why)+'</small></div></div>'}).join(''):'<div class="empty">'+(skK==='miss'?(c.done.length?'All books found 🎉':'Start scanning the books on the shelves.'):skK==='done'?'Nothing scanned yet.':'No problems.')+'</div>')}
+  $('skReset').onclick=function(){var b=$('skReset');if(!b.dataset.sure){b.dataset.sure='1';b.textContent='Tap again to clear the scans';setTimeout(function(){b.dataset.sure='';b.textContent='Start a new check'},4000);return}skPut({});b.dataset.sure='';b.textContent='Start a new check';rStock();toast('New stock check started')};
+  $('skPrint').onclick=function(){var c=skCalc();$('repPrint').innerHTML='<h1>'+esc(D.lib.name)+'</h1><p class="sub"><b>Stock check: books not found</b> · '+c.miss.length+' books · printed '+dstr(Date.now())+'</p><table><thead><tr><th>#</th><th>Book</th><th>ID</th><th>Author</th><th>Shelf</th></tr></thead><tbody>'+c.miss.map(function(b,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(b.title)+'</td><td>'+esc(b.id)+'</td><td>'+esc(b.author)+'</td><td>'+esc(b.shelf)+'</td></tr>'}).join('')+'</tbody></table>';document.body.classList.add('prRep');setTimeout(function(){window.print()},100)};
   /* ---------- billing ---------- */
   function rBilling(){var L=D.lib;
     $('planNow').innerHTML='<h3>Your plan</h3><p style="margin:0">'+(L.plan==='demo'?'Demo library':L.plan==='trial'?'Free trial':'Paid plan ('+esc(L.plan)+')')+' · '+(L.expired?'<b style="color:var(--err)">ended on '+dstr(L.expires)+'</b>':'valid till <b>'+dstr(L.expires)+'</b> ('+L.daysLeft+' days left)')+'</p>';
