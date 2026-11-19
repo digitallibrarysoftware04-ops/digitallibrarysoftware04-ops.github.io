@@ -450,6 +450,9 @@ async function startScan(onCode,keep,msg){
   }catch(e){m.textContent=(e&&e.name==='NotAllowedError')?'Camera permission was denied. Allow the camera in the browser settings.':'Camera could not start. Use Google Chrome, or type the ID.'}
 }
 function stopScan(){clearTimeout(SCAN.timer);try{SCAN.zx&&SCAN.zx.reset()}catch(e){}SCAN.zx=null;if(SCAN.stream){SCAN.stream.getTracks().forEach(function(t){t.stop()});SCAN.stream=null}var v=document.getElementById('scanVid');if(v){try{v.pause();v.srcObject=null}catch(e){}}var b=document.getElementById('scan');b&&b.classList.remove('on')}
+/* wrong-try waiting time: the server says "(30s)"; the button counts down */
+function lsWait(b,err,label){var m=/\((\d+)s\)/.exec(err&&err.message||''),n=m?+m[1]:0;if(!n){b.disabled=false;b.textContent=label;return}
+  b.disabled=true;var t=setInterval(function(){if(n<=0){clearInterval(t);b.disabled=false;b.textContent=label;return}b.textContent='⏳ Wait '+(n>=60?Math.floor(n/60)+':'+('0'+n%60).slice(-2)+' min':n+' sec');n--},1000);b.textContent='⏳ Wait '+n+' sec'}
 
 (function(){
   var $=function(i){return document.getElementById(i)};
